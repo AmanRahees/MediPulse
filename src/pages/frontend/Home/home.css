@@ -1,0 +1,36 @@
+._hero-section {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/1;
+}
+
+._hero-content {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+._hero-content h1 {
+  font-size: 60px;
+  font-family: var(--font-bold);
+  color: var(--primary-color);
+  width: 50%;
+}
+
+._hero-content p {
+  font-size: var(--text-large);
+  font-family: var(--font-semibold);
+  color: #333;
+}
+
+@media (max-width: 576px) {
+  ._hero-content h1 {
+    font-size: 22px;
+    width: 70%;
+  }
+  ._hero-content p {
+    font-size: 14px;
+    width: 60%;
+  }
+}

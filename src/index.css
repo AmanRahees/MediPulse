@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/fonts/Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat SemiBold";
+  src: url("./assets/fonts/Montserrat-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat Bold";
+  src: url("./assets/fonts/Montserrat-Bold.ttf");
+}
+
+:root {
+  --primary-color: #212d52;
+  --secondary-color: #1178c0;
+  --ternary-color: #2de4d0;
+  --core-color: #ededed;
+  --main-color: #161610;
+  --accent-color: #4f6f81;
+  --highlight-color: #8dd2d1;
+  --font-semibold: "Montserrat SemiBold";
+  --font-bold: "Montserrat Bold";
+  --text-large: 24px;
+  --text-medium: 18px;
+  --text-small: 14px;
+  --text-xs: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: "Montserrat";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat Bold";
+}
+
+body {
+  overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}

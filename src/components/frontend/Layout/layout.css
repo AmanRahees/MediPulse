@@ -1,0 +1,14 @@
+._layout {
+  padding-top: 80px;
+  min-height: 90vh;
+}
+
+._contentBox {
+  padding: 20px;
+}
+
+@media (max-width: 576px) {
+  ._layout {
+    padding-top: 60px;
+  }
+}

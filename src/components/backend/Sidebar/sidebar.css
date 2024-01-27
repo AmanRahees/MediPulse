@@ -1,0 +1,128 @@
+.sidebar_ {
+  position: relative;
+  background: var(--main-color);
+  width: 400px;
+  height: 100vh;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+
+.sidebar_.active {
+  width: 100px;
+}
+
+.sidebar-container_ {
+  padding: 14px;
+}
+
+.sidebarTop_ {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar_.active .sidebarTop_ {
+  justify-content: center;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 28px;
+}
+
+.sidebar_.active .sidebar-logo {
+  display: none;
+}
+
+.sidebar-elements_ {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--accent-color);
+  margin: 30px 0;
+  height: 85vh;
+  overflow: scroll;
+}
+
+.sidebar-elements_::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebarItem_ {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  transition: all 0.5s ease;
+}
+
+.sidebar_.active .sidebarItem_ {
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar_.active .sidebarItem_ span {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.sidebarItem_.active {
+  font-weight: bolder;
+  background: #222;
+  color: var(--highlight-color);
+  border-left: 4px solid var(--highlight-color);
+}
+
+@media (max-width: 576px) {
+  .sidebar_ {
+    width: 100px;
+  }
+  .sidebar_.active {
+    width: 300px;
+    position: absolute;
+    z-index: 1;
+  }
+  .sidebar-container_ {
+    padding: 14px 8px;
+  }
+  .sidebarTop_ {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sidebar_.active .sidebarTop_ {
+    justify-content: space-between;
+  }
+  .sidebar-logo {
+    display: none;
+  }
+  .sidebar_.active .sidebar-logo {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 28px;
+  }
+  .sidebarItem_ {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    transition: all 0.5s ease;
+  }
+  .sidebar_.active .sidebarItem_ {
+    display: flex;
+    justify-content: left;
+    gap: 8px;
+    padding: 10px;
+  }
+  .sidebar_ .sidebarItem_ span {
+    position: absolute;
+    opacity: 0;
+  }
+  .sidebar_.active .sidebarItem_ span {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+  }
+}

@@ -1,0 +1,26 @@
+.layout_ {
+  display: flex;
+  background: var(--core-color);
+  min-height: 100vh;
+}
+
+.content_container_ {
+  width: 100%;
+  height: 100%;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.pageHeading_ {
+  font-size: 32px;
+}
+
+.content_container_::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .pageHeading_ {
+    font-size: 22px;
+  }
+}
