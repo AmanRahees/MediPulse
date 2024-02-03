@@ -1,0 +1,17 @@
+._filterBox {
+  width: 360px;
+}
+
+@media (max-width: 996px) {
+  ._filterBox {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  ._filterBox {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

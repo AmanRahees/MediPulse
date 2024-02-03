@@ -188,7 +188,7 @@ function OtpBox() {
           </div>
           <DialogDescription className="text-center">
             Enter the 6 digit code send to{" "}
-            <span className="font-bold text-primary">aman@gmail.com</span>
+            <span className="font-bold text-secondary">aman@gmail.com</span>
           </DialogDescription>
         </DialogHeader>
         <div className="flex justify-center">
@@ -213,7 +213,7 @@ function OtpBox() {
           <button
             type="button"
             onClick={() => console.log(typeof parseInt(otp, 10), otp)}
-            className="bg-black text-white py-2 px-3 rounded-md"
+            className="bg-secondary text-white py-2 px-3 rounded-md"
           >
             Submit
           </button>

@@ -20,36 +20,38 @@ function Header() {
     <header className="adm-header_">
       <DropdownMenu>
         <DropdownMenuTrigger className="text-white" asChild>
-          <div className="relative bg-zinc-800 p-2 rounded-full cursor-pointer">
+          <div className="relative bg-main p-2 rounded-full cursor-pointer">
             <small className="absolute top-0 right-0 rounded-full bg-highlight w-3 h-3 text-center"></small>
             <Bell />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-max md:mr-24 bg-main text-white border-zinc-800">
+        <DropdownMenuContent className="w-max md:mr-24 text-main border-gray-300">
           <DropdownMenuLabel>
             <div className="flex justify-between items-center py-1">
               <p className="">Notifications</p>
-              <button className="text-green-600 font-light">Clear All</button>
+              <button className="text-green-600 font-light text-xs">
+                CLEAR ALL
+              </button>
             </div>
           </DropdownMenuLabel>
-          <hr className="border-zinc-800" />
+          <hr className="border-gray-300" />
           <ScrollArea className="h-64 p-1">
             {Notification.map((item, index) => (
               <div key={index} className="m-1">
                 <div className="flex items-center gap-3 p-2 rounded-md">
-                  <div className="bg-zinc-800 p-2 rounded-md">
+                  <div className="bg-slate-200 p-2 rounded-md">
                     <Mail />
                   </div>
                   <div className="w-52">
                     <span className="text-[12px] overflow-ellipsis overflow-hidden line-clamp-2">
                       {item.message}
                     </span>
-                    <small className="text-gray-500 text-[10px]">
+                    <small className="text-gray-400 text-[10px]">
                       4 min ago
                     </small>
                   </div>
                 </div>
-                <hr className="border-zinc-800" />
+                <hr className="border-gray-300" />
               </div>
             ))}
           </ScrollArea>
@@ -66,7 +68,7 @@ function Header() {
             />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-max mr-5 bg-main border-zinc-800">
+        <DropdownMenuContent className="w-max mr-5 border-gray-300">
           <DropdownMenuLabel>
             <div className="flex gap-2 items-center">
               <img
@@ -75,30 +77,30 @@ function Header() {
                 className="w-10 rounded-full"
               />
               <div>
-                <p className="font-bold text-white">Aman Rahees</p>
+                <p className="font-bold text-main">Aman Rahees</p>
                 <small className="text-gray-500">Administrator</small>
               </div>
             </div>
           </DropdownMenuLabel>
-          <hr className="my-1 border-zinc-800" />
+          <hr className="my-1 border-gray-300" />
           <DropdownMenuGroup className="px-1">
-            <DropdownMenuItem className="focus:bg-main">
-              <Link className="flex items-center gap-2 text-gray-500 hover:text-highlight rounded-md">
-                <User />
-                <span className="font-bold">Profile</span>
+            <DropdownMenuItem>
+              <Link className="flex items-center gap-2">
+                <User className="inline-block text-zinc-700" size={20} />
+                Profile
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="focus:bg-main">
-              <Link className="flex items-center gap-2 text-gray-500 hover:text-highlight rounded-md">
-                <Settings />
-                <span className="font-bold">Settings</span>
+            <DropdownMenuItem>
+              <Link className="flex items-center gap-2">
+                <Settings className="inline-block text-zinc-700" size={20} />
+                Settings
               </Link>
             </DropdownMenuItem>
-            <hr className="my-1 border-zinc-800" />
-            <DropdownMenuItem className="focus:bg-main">
-              <Link className="flex items-center gap-2 text-red-600 hover:text-red-600 rounded-md">
+            <hr className="my-1 border-gray-300" />
+            <DropdownMenuItem>
+              <Link className="flex items-center gap-2 text-red-600 hover:text-red-600">
                 <Power />
-                <span className="font-bold">Logout</span>
+                Logout
               </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>

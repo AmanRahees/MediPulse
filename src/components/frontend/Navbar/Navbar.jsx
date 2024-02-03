@@ -3,12 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered, faClose } from "@fortawesome/free-solid-svg-icons";
+import NavDropdown from "./NavDropdown";
 import Logo from "@/assets/images/MediPulse-logo.png";
+import { NavItems } from "./NavItems";
 import "./navbar.css";
 
 function Navbar() {
   const location = useLocation();
   const [navShow, setNavShow] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   return (
     <>
       <div className="navbar-lg">
@@ -17,46 +20,44 @@ function Navbar() {
             <img src={Logo} alt="" />
           </div>
           <div className="navItems">
-            <Link
-              to="/"
-              className={`nav-item ${
-                location.pathname === "/" ? "active" : ""
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to=""
-              className={`nav-item ${
-                location.pathname === "/doctors" ? "active" : ""
-              }`}
-            >
-              Doctors
-            </Link>
-            <Link
-              to=""
-              className={`nav-item ${
-                location.pathname === "/services" ? "active" : ""
-              }`}
-            >
-              Services
-            </Link>
-            <Link
-              to=""
-              className={`nav-item ${
-                location.pathname === "/contact" ? "active" : ""
-              }`}
-            >
-              Contact
-            </Link>
+            {NavItems.map((item, index) => (
+              <>
+                {item.ItemPath === "/" ? (
+                  <Link
+                    to={item.ItemPath}
+                    key={index}
+                    className={`nav-item ${
+                      location.pathname === item.ItemPath ? "active" : ""
+                    }`}
+                  >
+                    {item.ItemName}
+                  </Link>
+                ) : (
+                  <Link
+                    to={item.ItemPath}
+                    key={index}
+                    className={`nav-item ${
+                      location.pathname.includes(item.ItemPath) ? "active" : ""
+                    }`}
+                  >
+                    {item.ItemName}
+                  </Link>
+                )}
+              </>
+            ))}
           </div>
           <div className="nav-adds">
-            <Link to="/login" className="navBtn">
-              Login
-            </Link>
+            {isLogin ? (
+              <NavDropdown />
+            ) : (
+              <Link to="/login" className="navBtn">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
+      {/*  */}
       <div className="navbar-sm">
         <div className="nav-container">
           <div className="nav-logo">
@@ -72,46 +73,26 @@ function Navbar() {
                   <FontAwesomeIcon icon={faClose} />
                 </button>
               </div>
-              <Link
-                to="/"
-                className={`nav-item ${
-                  location.pathname === "/" ? "active" : ""
-                }`}
-              >
-                Home
-              </Link>
-              <Link
-                to=""
-                className={`nav-item ${
-                  location.pathname === "/doctors" ? "active" : ""
-                }`}
-              >
-                Doctors
-              </Link>
-              <Link
-                to=""
-                className={`nav-item ${
-                  location.pathname === "/services" ? "active" : ""
-                }`}
-              >
-                Services
-              </Link>
-              <Link
-                to=""
-                className={`nav-item ${
-                  location.pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                Contact
-              </Link>
-              <Link
-                to="/login"
-                className={`nav-item ${
-                  location.pathname === "/login" ? "active" : ""
-                }`}
-              >
-                Login
-              </Link>
+              {NavItems.map((item, index) => (
+                <Link
+                  to={item.ItemPath}
+                  key={index}
+                  className={`nav-item ${
+                    location.pathname === item.ItemPath ? "active" : ""
+                  }`}
+                >
+                  {item.ItemName}
+                </Link>
+              ))}
+              {isLogin ? (
+                <div className="text-right">
+                  <NavDropdown />
+                </div>
+              ) : (
+                <Link to="/login" className="nav-item">
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -2,19 +2,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Stethoscope, User, Table2, Wallet } from "lucide-react";
+import { formatDate } from "@/func/days";
 import Layout from "@/components/backend/Layout/Layout";
 
 function Dashboard() {
-  const GetToday = () => {
-    let date = new Date();
-    let options = { day: "numeric", month: "short", year: "numeric" };
-    let formattedDate = date.toLocaleDateString("en-US", options);
-    return formattedDate;
-  };
   return (
     <Layout>
       <h1 className="pageHeading_">Dashboard</h1>
-      <small className="block font-bold">{GetToday()}</small>
+      <small className="block font-bold">{formatDate(new Date())}</small>
 
       <div className="my-5 grid grid-cols-1 md:grid-cols-4 gap-3">
         <Link className="relative border bg-main text-white h-36 p-5 rounded-md shadow">
@@ -34,7 +29,7 @@ function Dashboard() {
         <Link className="relative border bg-main text-white h-36 p-5 rounded-md shadow">
           <p className="font-bold text-xl">Patients</p>
           <span className="absolute top-5 right-5 p-3 rounded-full bg-indigo-400 text-main">
-            <Stethoscope />
+            <User />
           </span>
           <h1 className="absolute bottom-5 right-5 text-2xl">350+</h1>
         </Link>

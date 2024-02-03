@@ -16,12 +16,12 @@ function Home() {
       <div className="_hero-section">
         <img src={banner} alt="" className="w-full" />
         <div className="_hero-content">
-          <div className="absolute top-10 left-8 md:top-1/2 md:left-52 md:-translate-y-1/2">
+          <div className="absolute top-3 left-8 md:top-1/2 md:left-20 lg:left-52 md:-translate-y-1/2">
             <h1>YOUR HEALTH IS OUR PRIORITY</h1>
-            <p className="mb-5">
+            <p className="mb-2 md:mb-5">
               We offer best healthcare for you and your family.
             </p>
-            <Link className="px-5 py-3 bg-secondary text-white rounded-xl">
+            <Link className="px-3 py-2 text-xs md:text-base md:py-3 md:px-5 bg-secondary text-white rounded-md md:rounded-xl">
               Take Appoinment
             </Link>
           </div>

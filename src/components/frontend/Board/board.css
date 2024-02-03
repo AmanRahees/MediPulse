@@ -1,0 +1,34 @@
+.pfl_wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.pfl_n1 {
+  width: 25%;
+}
+
+.pfl_n2 {
+  width: 75%;
+}
+
+@media (max-width: 996px) {
+  .pfl_n1 {
+    width: 35%;
+  }
+  .pfl_n2 {
+    width: 65%;
+  }
+}
+
+@media (max-width: 576px) {
+  .pfl_wrapper {
+    display: block;
+  }
+  .pfl_n1 {
+    width: 100%;
+  }
+  .pfl_n2 {
+    width: 100%;
+  }
+}
