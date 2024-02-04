@@ -11,7 +11,7 @@ function Dashboard() {
       <h1 className="pageHeading_">Dashboard</h1>
       <small className="block font-bold">{formatDate(new Date())}</small>
 
-      <div className="my-5 grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         <Link className="relative border bg-main text-white h-36 p-5 rounded-md shadow">
           <p className="font-bold text-xl">Income</p>
           <span className="absolute top-5 right-5 p-3 rounded-full bg-green-400 text-main">

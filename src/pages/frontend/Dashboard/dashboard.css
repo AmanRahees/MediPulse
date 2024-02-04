@@ -1,0 +1,21 @@
+._docDCI {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-right: 1px solid #eaeaea;
+}
+
+._docPCI {
+  padding: 10px;
+  border: 1px solid #eaeaea;
+  overflow: hidden;
+}
+
+@media (max-width: 996px) {
+  ._docDCI {
+    border: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
+  }
+}

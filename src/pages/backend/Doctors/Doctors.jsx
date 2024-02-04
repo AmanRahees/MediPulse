@@ -27,7 +27,7 @@ function Doctors() {
       <h1 className="pageHeading_">Doctors</h1>
       <Breadcrumb pathToPage={pathToPage} />
       <div className="my-5 p-3 bg-white">
-        <Table className="border-b text-nowrap w-max md:w-full">
+        <Table className="border-b text-nowrap w-max lg:w-full">
           <TableHeader>
             <TableRow className="bg-main hover:bg-main">
               <TableHead className="font-bold text-white">

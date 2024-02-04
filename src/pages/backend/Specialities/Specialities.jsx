@@ -36,7 +36,7 @@ function Specialities() {
         <AddSpecialityForm />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 my-3">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 my-3">
         <div className="flex items-start gap-2 bg-white p-3 rounded-2xl border h-[150px]">
           <div className="flex justify-center items-center w-1/3 bg-slate-100 h-full rounded-2xl border">
             <img

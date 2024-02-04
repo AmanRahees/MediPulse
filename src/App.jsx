@@ -13,6 +13,12 @@ import PasswordChange from "./pages/frontend/Profile/PasswordChange";
 import Login from "./pages/frontend/Auth/Login";
 import Register from "./pages/frontend/Auth/Register";
 
+// Doctor
+import DoctorDashboard from "./pages/frontend/Dashboard/Dashboard";
+import DoctorAppointments from "./pages/frontend/Dashboard/Appoinments";
+import DoctorPatients from "./pages/frontend/Dashboard/Patients";
+import DoctorTimings from "./pages/frontend/Dashboard/Timings";
+
 // Administrator
 import Dashboard from "./pages/backend/Dashboard/Dashboard";
 import Specialities from "./pages/backend/Specialities/Specialities";
@@ -33,6 +39,17 @@ function App() {
         <Route path="/profile/change-password" element={<PasswordChange />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
+        <Route
+          path="/doctor/dashboard/appointments"
+          element={<DoctorAppointments />}
+        />
+        <Route
+          path="/doctor/dashboard/my-patients"
+          element={<DoctorPatients />}
+        />
+        <Route path="/doctor/dashboard/timings" element={<DoctorTimings />} />
 
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/specialities" element={<Specialities />} />
