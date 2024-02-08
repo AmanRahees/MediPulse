@@ -16,7 +16,7 @@ function Wallet() {
             </div>
           </div>
           <button className="bg-primary text-white py-2 px-5 text-xs lg:text-sm rounded-md">
-            + Add Money to Wallet
+            Withdraw &rarr;
           </button>
         </div>
         <h1 className="my-5 text-xl">Recents</h1>
@@ -45,8 +45,8 @@ function Wallet() {
           ))}
         </div>
         <div className="flex justify-center my-3">
-          <button className="bg-secondary text-white py-1 px-3 rounded-md text-sm">
-            View All
+          <button className="text-secondary bg-sky-50 text-xs md:text-sm w-[120px] text-center py-2 rounded-2xl">
+            View More
           </button>
         </div>
       </div>

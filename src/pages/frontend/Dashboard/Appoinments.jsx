@@ -15,7 +15,7 @@ function Appoinments() {
   return (
     <Board>
       <div className="p-1">
-        <h1 className="text-2xl my-1">Appointments</h1>
+        <p className="font-bold text-xl mb-2 text-zinc-800">Appointments</p>
         <Table className="border-b text-nowrap w-max lg:w-full my-2">
           <TableHeader>
             <TableRow className="bg-zinc-100 hover:bg-zinc-100">

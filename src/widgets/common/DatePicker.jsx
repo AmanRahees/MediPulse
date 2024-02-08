@@ -8,7 +8,7 @@ import { Calendar } from "@/widgets/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/widgets/ui/popover";
 
 const DatePicker = ({ onChange, isMax, isMin }) => {
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const isDateDisabled = (selectedDate) => {
     const currentDate = new Date();
 

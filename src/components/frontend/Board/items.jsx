@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   UserCog,
   Star,
-  FileText,
   UsersRound,
   CalendarClock,
   LibraryBig,
@@ -48,6 +47,11 @@ export const doctortItems = [
     icon: <LayoutDashboard size={20} />,
   },
   {
+    title: "Profile Settings",
+    path: "/doctor/dashboard/profile",
+    icon: <UserCog size={20} />,
+  },
+  {
     title: "Appointments",
     path: "/doctor/dashboard/appointments",
     icon: <ClipboardPen size={20} />,
@@ -68,23 +72,13 @@ export const doctortItems = [
     icon: <LibraryBig size={20} />,
   },
   {
-    title: "Invoices",
-    path: "/doctor/dashboard/invoices",
-    icon: <FileText size={20} />,
-  },
-  {
     title: "Reviews",
     path: "/doctor/dashboard/reviews",
     icon: <Star size={20} />,
   },
   {
-    title: "Profile Settings",
-    path: "/doctor/dashboard/profile",
-    icon: <UserCog size={20} />,
-  },
-  {
     title: "Wallet",
-    path: "/profile/wallet",
+    path: "/doctor/dashboard/wallet",
     icon: <Wallet size={20} />,
   },
   {

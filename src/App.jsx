@@ -18,11 +18,16 @@ import DoctorDashboard from "./pages/frontend/Dashboard/Dashboard";
 import DoctorAppointments from "./pages/frontend/Dashboard/Appoinments";
 import DoctorPatients from "./pages/frontend/Dashboard/Patients";
 import DoctorTimings from "./pages/frontend/Dashboard/Timings";
+import DoctorSlots from "./pages/frontend/Dashboard/Slots";
+import DoctorReviews from "./pages/frontend/Dashboard/Reviews";
+import DoctorProfile from "./pages/frontend/Dashboard/Profile";
+import DoctorWallet from "./pages/frontend/Dashboard/Wallet";
 
 // Administrator
 import Dashboard from "./pages/backend/Dashboard/Dashboard";
 import Specialities from "./pages/backend/Specialities/Specialities";
-import DoctorList from "./pages/backend/Doctors/Doctors";
+import DoctorsList from "./pages/backend/Doctors/Doctors";
+import PatientsList from "./pages/backend/Patients/Patients";
 
 function App() {
   return (
@@ -50,10 +55,15 @@ function App() {
           element={<DoctorPatients />}
         />
         <Route path="/doctor/dashboard/timings" element={<DoctorTimings />} />
+        <Route path="/doctor/dashboard/slots" element={<DoctorSlots />} />
+        <Route path="/doctor/dashboard/reviews" element={<DoctorReviews />} />
+        <Route path="/doctor/dashboard/profile" element={<DoctorProfile />} />
+        <Route path="/doctor/dashboard/wallet" element={<DoctorWallet />} />
 
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/specialities" element={<Specialities />} />
-        <Route path="/admin/doctors" element={<DoctorList />} />
+        <Route path="/admin/doctors" element={<DoctorsList />} />
+        <Route path="/admin/patients" element={<PatientsList />} />
       </Routes>
     </Router>
   );

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
-import { Power, User, Settings } from "lucide-react";
+import { Power, User, Wallet } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
 } from "@/widgets/ui/dropdown-menu";
 
-const NavDrop = () => {
+const NavDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none p-1">
@@ -39,14 +39,20 @@ const NavDrop = () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex items-center gap-1">
-          <Link to="/profile">
+          <Link to={`/profile`}>
             <User className="inline-block text-zinc-700" size={20} /> Profile
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex items-center gap-1">
-          <Link to="">
-            <Settings className="inline-block text-zinc-700" size={20} />{" "}
-            Settings
+        <DropdownMenuItem>
+          <Link
+            to={`/profile/wallet`}
+            className="flex justify-between items-center w-full"
+          >
+            <span className="flex gap-1">
+              <Wallet className="inline-block text-zinc-700" size={20} />
+              Wallet
+            </span>
+            <b className="block text-xs">&#8377;5000.00</b>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -60,4 +66,4 @@ const NavDrop = () => {
   );
 };
 
-export default NavDrop;
+export default NavDropdown;

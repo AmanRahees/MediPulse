@@ -16,9 +16,9 @@ function Navbar() {
     <>
       <div className="navbar-lg">
         <div className="nav-container">
-          <div className="nav-logo">
+          <Link to="/" className="nav-logo">
             <img src={Logo} alt="" />
-          </div>
+          </Link>
           <div className="navItems">
             {NavItems.map((item, index) => (
               <>

@@ -8,7 +8,7 @@ function Patients() {
   return (
     <Board>
       <div>
-        <h1 className="text-2xl my-1">My Patients</h1>
+        <p className="font-bold text-xl mb-2 text-zinc-800">My Patients</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-3 gap-2">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((patient, index) => (
             <div className="_docPCI" key={index}>

@@ -11,32 +11,30 @@ import {
 import Layout from "@/components/backend/Layout/Layout";
 import Breadcrumb from "@/components/backend/Elements/Breadcrumb";
 
-function Doctors() {
+function Patients() {
   const pathToPage = [
     {
       title: "Dashboard",
       path: "/admin/dashboard",
     },
     {
-      title: "Doctors",
-      path: "/admin/doctors",
+      title: "Patients",
+      path: "/admin/patients",
     },
   ];
   return (
     <Layout>
-      <h1 className="pageHeading_">Doctors</h1>
+      <h1 className="pageHeading_">Patients</h1>
       <Breadcrumb pathToPage={pathToPage} />
       <div className="my-5 p-3 bg-white">
         <Table className="border-b text-nowrap w-max lg:w-full">
           <TableHeader>
             <TableRow className="bg-main hover:bg-main">
               <TableHead className="font-bold text-white">
-                Doctor Name
+                Patient Name
               </TableHead>
               <TableHead className="font-bold text-white">Email</TableHead>
-              <TableHead className="font-bold text-white">Speciality</TableHead>
-              <TableHead className="font-bold text-white">Earned</TableHead>
-              <TableHead className="font-bold text-white">Rating</TableHead>
+              <TableHead className="font-bold text-white">Gender</TableHead>
               <TableHead className="font-bold text-white">
                 Member Since
               </TableHead>
@@ -56,16 +54,14 @@ function Doctors() {
                 </div>
               </TableCell>
               <TableCell>aman@gmail.com</TableCell>
-              <TableCell>Cardiologist</TableCell>
-              <TableCell>$0</TableCell>
-              <TableCell>4.2</TableCell>
-              <TableCell>Jan 28 2024</TableCell>
+              <TableCell>Male</TableCell>
+              <TableCell>Jan 28, 2024</TableCell>
               <TableCell>
                 {/* <button className="bg-blue-200 text-blue-700 py-1 px-2 text-xs rounded-2xl">
                   Requested
                 </button> */}
                 <button className="bg-green-200 text-green-700 py-1 px-2 text-xs rounded-2xl">
-                  Approved
+                  Active
                 </button>
                 {/* <button className="bg-red-200 text-red-700 py-1 px-2 text-xs rounded-2xl">
                   Revoked
@@ -87,4 +83,4 @@ function Doctors() {
   );
 }
 
-export default Doctors;
+export default Patients;
