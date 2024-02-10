@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axiosInstance from "@/services/axios";
-import { apiUrl } from "@/services/constants";
 import Loader from "@/components/frontend/Loader/Loader";
 
 const AuthContext = createContext();
@@ -22,9 +21,9 @@ export const AuthProvider = ({ children }) => {
   );
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const UserLogin = async (email, password) => {
+  const UserLogin = async (email, password, state) => {
     axiosInstance
-      .post(`${apiUrl}/api/accounts/login`, {
+      .post(`accounts/login`, {
         email: email,
         password: password,
       })
@@ -37,15 +36,15 @@ export const AuthProvider = ({ children }) => {
           navigate("/");
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         setError("Invalid Email or Password!");
+        state(false);
       });
   };
 
   const AdminLogin = async (email, password) => {
     axiosInstance
-      .post(`${apiUrl}/api/admin/login`, {
+      .post(`admin/login`, {
         email: email,
         password: password,
       })
@@ -76,6 +75,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then((response) => {
         let data = response.data;
+        console.log("Refresh Success");
         if (response.status === 200) {
           setAuthTokens(data);
           setUserData(jwtDecode(data.access));

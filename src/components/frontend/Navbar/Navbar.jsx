@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered, faClose } from "@fortawesome/free-solid-svg-icons";
+import AuthContext from "@/contexts/AuthContext";
 import NavDropdown from "./NavDropdown";
-import Logo from "@/assets/images/MediPulse-logo.png";
 import { NavItems } from "./NavItems";
+import Logo from "@/assets/images/MediPulse-logo.png";
 import "./navbar.css";
 
 function Navbar() {
+  const { userData, Logout } = useContext(AuthContext);
   const location = useLocation();
   const [navShow, setNavShow] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
   return (
     <>
       <div className="navbar-lg">
@@ -45,8 +46,8 @@ function Navbar() {
             ))}
           </div>
           <div className="nav-adds">
-            {isLogin ? (
-              <NavDropdown />
+            {userData ? (
+              <NavDropdown user={userData} userLogout={Logout} />
             ) : (
               <Link to="/login" className="navBtn">
                 Login
@@ -82,9 +83,9 @@ function Navbar() {
                   {item.ItemName}
                 </Link>
               ))}
-              {isLogin ? (
+              {userData ? (
                 <div className="text-right">
-                  <NavDropdown />
+                  <NavDropdown user={userData} userLogout={Logout} />
                 </div>
               ) : (
                 <Link to="/login" className="nav-item">

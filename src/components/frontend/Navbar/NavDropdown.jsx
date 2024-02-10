@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { LogOut, User, Wallet } from "lucide-react";
 import {
@@ -11,7 +10,7 @@ import {
   DropdownMenuSeparator,
 } from "@/widgets/ui/dropdown-menu";
 
-const NavDropdown = () => {
+const NavDropdown = ({ user, userLogout }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none p-1">
@@ -31,9 +30,9 @@ const NavDropdown = () => {
             />
             <div>
               <p className="font-bold text-main text-ellipsis line-clamp-1 overflow-hidden max-w-[120px]">
-                Aman Rahees
+                {user?.username}
               </p>
-              <small className="text-gray-500">Patient</small>
+              <small className="text-gray-500 capitalize">{user?.role}</small>
             </div>
           </div>
         </DropdownMenuLabel>
@@ -53,7 +52,7 @@ const NavDropdown = () => {
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
-        <button className="w-full">
+        <button className="w-full" onClick={userLogout}>
           <DropdownMenuItem className="flex items-center gap-1 text-red-600 focus:text-red-600 w-full">
             <LogOut className="inline-block" size={20} /> Logout
           </DropdownMenuItem>
@@ -61,6 +60,11 @@ const NavDropdown = () => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
+};
+
+NavDropdown.propTypes = {
+  user: PropTypes.object.isRequired,
+  userLogout: PropTypes.func.isRequired,
 };
 
 export default NavDropdown;

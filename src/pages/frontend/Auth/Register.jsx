@@ -16,7 +16,7 @@ const ErrorInfo = () => {
 function Register() {
   const navigate = useNavigate();
   const { setAuthTokens, setUserData } = useContext(AuthContext);
-  const [role, setRole] = useState("Patient");
+  const [role, setRole] = useState("patient");
   const [isVerified, setIsVerified] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [formData, setFormData] = useState({
@@ -86,13 +86,13 @@ function Register() {
               onClick={() => setRole("Patient")}
               type="button"
               className={`w-1/2 rounded-md ${
-                role === "Patient" ? "bg-primary text-white" : "bg-blue-50"
+                role === "patient" ? "bg-primary text-white" : "bg-blue-50"
               } py-2`}
             >
               Patient
             </button>
             <button
-              onClick={() => setRole("Doctor")}
+              onClick={() => setRole("doctor")}
               type="button"
               className={`w-1/2 rounded-md ${
                 role === "Doctor" ? "bg-primary text-white" : "bg-blue-50"
