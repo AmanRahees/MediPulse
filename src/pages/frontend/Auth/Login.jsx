@@ -21,9 +21,7 @@ function Login() {
   };
   return (
     <div className="_auth-container">
-      <div className="_authDv1">
-        <img src={Image} alt="" />
-      </div>
+      <div className="_authDv1"></div>
       <div className="_authDv2">
         <form onSubmit={handleFormSubmit} className="text-primary rounded-md">
           <div className="text-center mb-10">

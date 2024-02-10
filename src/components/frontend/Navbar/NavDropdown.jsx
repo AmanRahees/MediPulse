@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
-import { Power, User, Wallet } from "lucide-react";
+import { LogOut, User, Wallet } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,29 +38,26 @@ const NavDropdown = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex items-center gap-1">
-          <Link to={`/profile`}>
+        <Link to={`/profile`} className="w-full h-full">
+          <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
             <User className="inline-block text-zinc-700" size={20} /> Profile
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link
-            to={`/profile/wallet`}
-            className="flex justify-between items-center w-full"
-          >
+          </DropdownMenuItem>
+        </Link>
+        <Link to={`/profile/wallet`}>
+          <DropdownMenuItem className="flex justify-between items-center w-full cursor-pointer">
             <span className="flex gap-1">
               <Wallet className="inline-block text-zinc-700" size={20} />
               Wallet
             </span>
-            <b className="block text-xs">&#8377;5000.00</b>
-          </Link>
-        </DropdownMenuItem>
+            <b className="block text-xs text-zinc-500">&#8377;5000.00</b>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <button className="flex items-center gap-1 text-red-600">
-            <Power className="inline-block" size={20} /> Logout
-          </button>
-        </DropdownMenuItem>
+        <button className="w-full">
+          <DropdownMenuItem className="flex items-center gap-1 text-red-600 focus:text-red-600 w-full">
+            <LogOut className="inline-block" size={20} /> Logout
+          </DropdownMenuItem>
+        </button>
       </DropdownMenuContent>
     </DropdownMenu>
   );

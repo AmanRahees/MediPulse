@@ -11,7 +11,7 @@ import "./navbar.css";
 function Navbar() {
   const location = useLocation();
   const [navShow, setNavShow] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <>
       <div className="navbar-lg">
@@ -21,11 +21,10 @@ function Navbar() {
           </Link>
           <div className="navItems">
             {NavItems.map((item, index) => (
-              <>
+              <div key={index}>
                 {item.ItemPath === "/" ? (
                   <Link
                     to={item.ItemPath}
-                    key={index}
                     className={`nav-item ${
                       location.pathname === item.ItemPath ? "active" : ""
                     }`}
@@ -35,7 +34,6 @@ function Navbar() {
                 ) : (
                   <Link
                     to={item.ItemPath}
-                    key={index}
                     className={`nav-item ${
                       location.pathname.includes(item.ItemPath) ? "active" : ""
                     }`}
@@ -43,7 +41,7 @@ function Navbar() {
                     {item.ItemName}
                   </Link>
                 )}
-              </>
+              </div>
             ))}
           </div>
           <div className="nav-adds">

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 
 // Patient
 import Home from "./pages/frontend/Home/Home";
@@ -14,6 +15,7 @@ import Login from "./pages/frontend/Auth/Login";
 import Register from "./pages/frontend/Auth/Register";
 
 // Doctor
+import DoctorSetup from "./pages/frontend/AccountSetup/AccountSetup";
 import DoctorDashboard from "./pages/frontend/Dashboard/Dashboard";
 import DoctorAppointments from "./pages/frontend/Dashboard/Appoinments";
 import DoctorPatients from "./pages/frontend/Dashboard/Patients";
@@ -32,39 +34,42 @@ import PatientsList from "./pages/backend/Patients/Patients";
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/doctors" element={<Doctors />} />
-        <Route path="/doctors/:id/:name" element={<DoctorView />} />
-        <Route path="/doctors/:id/:name/booking" element={<Booking />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/appointments" element={<MyBookings />} />
-        <Route path="/profile/favourites" element={<Favourites />} />
-        <Route path="/profile/wallet" element={<Wallet />} />
-        <Route path="/profile/change-password" element={<PasswordChange />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/doctors" element={<Doctors />} />
+          <Route path="/doctors/:id/:name" element={<DoctorView />} />
+          <Route path="/doctors/:id/:name/booking" element={<Booking />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/appointments" element={<MyBookings />} />
+          <Route path="/profile/favourites" element={<Favourites />} />
+          <Route path="/profile/wallet" element={<Wallet />} />
+          <Route path="/profile/change-password" element={<PasswordChange />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
-        <Route
-          path="/doctor/dashboard/appointments"
-          element={<DoctorAppointments />}
-        />
-        <Route
-          path="/doctor/dashboard/my-patients"
-          element={<DoctorPatients />}
-        />
-        <Route path="/doctor/dashboard/timings" element={<DoctorTimings />} />
-        <Route path="/doctor/dashboard/slots" element={<DoctorSlots />} />
-        <Route path="/doctor/dashboard/reviews" element={<DoctorReviews />} />
-        <Route path="/doctor/dashboard/profile" element={<DoctorProfile />} />
-        <Route path="/doctor/dashboard/wallet" element={<DoctorWallet />} />
+          <Route path="/register/profile-setup" element={<DoctorSetup />} />
+          <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
+          <Route
+            path="/doctor/dashboard/appointments"
+            element={<DoctorAppointments />}
+          />
+          <Route
+            path="/doctor/dashboard/my-patients"
+            element={<DoctorPatients />}
+          />
+          <Route path="/doctor/dashboard/timings" element={<DoctorTimings />} />
+          <Route path="/doctor/dashboard/slots" element={<DoctorSlots />} />
+          <Route path="/doctor/dashboard/reviews" element={<DoctorReviews />} />
+          <Route path="/doctor/dashboard/profile" element={<DoctorProfile />} />
+          <Route path="/doctor/dashboard/wallet" element={<DoctorWallet />} />
 
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/specialities" element={<Specialities />} />
-        <Route path="/admin/doctors" element={<DoctorsList />} />
-        <Route path="/admin/patients" element={<PatientsList />} />
-      </Routes>
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/specialities" element={<Specialities />} />
+          <Route path="/admin/doctors" element={<DoctorsList />} />
+          <Route path="/admin/patients" element={<PatientsList />} />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }

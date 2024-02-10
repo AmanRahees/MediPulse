@@ -1,3 +1,5 @@
+export const apiUrl = "http://127.0.0.1:8000";
+
 export const BLOOD_GROUPS = ["A", "A+", "B", "B+", "AB", "AB+", "O", "O+"];
 export const DAYS = [
   "MONDAY",

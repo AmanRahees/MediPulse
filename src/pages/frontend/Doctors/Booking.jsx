@@ -22,7 +22,8 @@ import Layout from "@/components/frontend/Layout/Layout";
 import { slotTimes } from "@/data/slotTimes";
 
 function Booking() {
-  const [selected, setSelected] = useState();
+  const [selectedDate, setSelectedDate] = useState();
+  const [selectedSlot, setSelectedSlot] = useState();
   return (
     <Layout>
       <div className="p-3 lg:py-20 lg:px-32">
@@ -49,11 +50,17 @@ function Booking() {
           </div>
           <hr className="my-5" />
           <div className="grid grid-cols-7 md:grid-cols-7 gap-1 md:gap-5">
-            {[1, 2, 3, 4, 5, 6, 7].map((_, index) => {
+            {[1, 2, 3, 4, 5, 6, 7].map((date_obj, index) => {
               const currentDate = new Date();
               currentDate.setDate(currentDate.getDate() + index + 1);
               return (
-                <button className="py-1 md:p-2 border rounded-md" key={index}>
+                <button
+                  onClick={() => setSelectedDate(date_obj)}
+                  className={`py-1 md:p-2 border rounded-md ${
+                    selectedDate === date_obj ? "bg-primary *:text-white" : ""
+                  }`}
+                  key={index}
+                >
                   <p className="font-bold text-[12px] md:text-base">
                     {getShortWeekDay(currentDate)}
                   </p>
@@ -68,17 +75,17 @@ function Booking() {
             })}
           </div>
           <hr className="my-5" />
-          <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 my-5">
+          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-2 my-5">
             {slotTimes.map((slot, index) => (
               <TooltipProvider key={index}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
                       className={`text-sm font-bold text-gray-600 p-2 rounded-md ${
-                        slot === selected
+                        slot === selectedSlot
                           ? "bg-secondary text-white"
                           : slot.status.toLowerCase() === "booked"
-                          ? "bg-gray-100 text-gray-300 cursor-not-allowed"
+                          ? "bg-gray-100 text-gray-200 cursor-not-allowed"
                           : "bg-sky-50"
                       }`}
                       key={index}
@@ -87,7 +94,7 @@ function Booking() {
                           ? true
                           : false
                       }
-                      onClick={() => setSelected(slot)}
+                      onClick={() => setSelectedSlot(slot)}
                     >
                       {slot.slot_time}
                     </button>
@@ -110,6 +117,9 @@ function Booking() {
             ))}
           </div>
         </div>
+        <button className="font-bold text-xs md:text-base bg-ternary text-white float-end py-2 px-4 rounded-md my-5">
+          Proceed to Pay &rarr;
+        </button>
       </div>
     </Layout>
   );
