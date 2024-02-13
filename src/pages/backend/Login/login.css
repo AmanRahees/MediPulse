@@ -1,0 +1,29 @@
+.admAuthBox {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../../../assets/images/img2.jpg");
+  background-size: 100% 100%;
+  min-height: 100vh;
+}
+
+.adminAuthForm {
+  color: #333;
+  padding: 30px;
+  border-radius: 6px;
+  width: 360px;
+  background: #fff;
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 576px) {
+  .admAuthBox {
+    background-image: url("../../../assets/images/admin_auth_bg.png");
+    background-size: cover;
+  }
+  .adminAuthForm {
+    width: 350px;
+  }
+}

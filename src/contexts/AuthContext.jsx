@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const AdminLogin = async (email, password) => {
+  const AdminLogin = async (email, password, state) => {
     axiosInstance
       .post(`admin/login`, {
         email: email,
@@ -54,11 +54,12 @@ export const AuthProvider = ({ children }) => {
           setAuthTokens(data);
           setUserData(jwtDecode(data.access));
           localStorage.setItem("authTokens", JSON.stringify(data));
-          navigate("/admin");
+          navigate("/admin/dashboard");
         }
       })
-      .catch((error) => {
-        setError(error.response.data.Error);
+      .catch(() => {
+        setError("Invalid Email or Password!");
+        state(false);
       });
   };
 

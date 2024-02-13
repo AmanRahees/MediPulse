@@ -16,6 +16,6 @@ export const AdminCredentialRoute = () => {
   if (!userData || userData.role !== "admin") {
     return <Outlet />;
   } else if (userData && userData.role === "admin") {
-    return <Navigate to="/admin" />;
+    return <Navigate to="/admin/dashboard" />;
   }
 };

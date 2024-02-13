@@ -33,6 +33,7 @@ import DoctorProfile from "./pages/frontend/Dashboard/Profile";
 import DoctorWallet from "./pages/frontend/Dashboard/Wallet";
 
 // Administrator
+import AdminLogin from "./pages/backend/Login/Login";
 import Dashboard from "./pages/backend/Dashboard/Dashboard";
 import Specialities from "./pages/backend/Specialities/Specialities";
 import DoctorsList from "./pages/backend/Doctors/Doctors";
@@ -96,6 +97,10 @@ function App() {
             <Route path="/admin/specialities" element={<Specialities />} />
             <Route path="/admin/doctors" element={<DoctorsList />} />
             <Route path="/admin/patients" element={<PatientsList />} />
+          </Route>
+
+          <Route element={<AdminCredentialRoute />}>
+            <Route path="/admin/login" element={<AdminLogin />} />
           </Route>
         </Routes>
       </AuthProvider>
