@@ -20,3 +20,12 @@ export const PublicRoute = () => {
   let { userData } = useContext(AuthContext);
   return userData ? <Outlet /> : <Navigate to="/login" />;
 };
+
+export const DocRestrictedRoute = () => {
+  let { userData } = useContext(AuthContext);
+  if (userData && userData.role === "doctor") {
+    return <Navigate to="/doctor/dashboard/profile" />;
+  } else {
+    return <Outlet />;
+  }
+};

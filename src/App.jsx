@@ -6,6 +6,7 @@ import {
   PublicRoute,
   DoctorRoute,
   CredentialRoute,
+  DocRestrictedRoute,
 } from "@/routes/PublicRoute";
 
 // Patient
@@ -55,14 +56,16 @@ function App() {
           <Route path="/doctors/:id/:name/booking" element={<Booking />} />
 
           <Route element={<PublicRoute />}>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/appointments" element={<MyBookings />} />
-            <Route path="/profile/favourites" element={<Favourites />} />
-            <Route path="/profile/wallet" element={<Wallet />} />
-            <Route
-              path="/profile/change-password"
-              element={<PasswordChange />}
-            />
+            <Route element={<DocRestrictedRoute />}>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/appointments" element={<MyBookings />} />
+              <Route path="/profile/favourites" element={<Favourites />} />
+              <Route path="/profile/wallet" element={<Wallet />} />
+              <Route
+                path="/profile/change-password"
+                element={<PasswordChange />}
+              />
+            </Route>
           </Route>
 
           <Route element={<DoctorRoute />}>

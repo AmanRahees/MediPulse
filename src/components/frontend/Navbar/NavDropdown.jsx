@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { LogOut, User, Wallet } from "lucide-react";
+import { LogOut, User, Wallet, LayoutDashboard } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,12 +37,31 @@ const NavDropdown = ({ user, userLogout }) => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link to={`/profile`} className="w-full h-full">
-          <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
-            <User className="inline-block text-zinc-700" size={20} /> Profile
-          </DropdownMenuItem>
+        <Link
+          to={user?.role === "doctor" ? "/doctor/dashboard" : `/profile`}
+          className="w-full h-full"
+        >
+          {user?.role === "doctor" ? (
+            <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
+              <LayoutDashboard
+                className="inline-block text-zinc-700"
+                size={20}
+              />
+              Dashboard
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
+              <User className="inline-block text-zinc-700" size={20} /> Profile
+            </DropdownMenuItem>
+          )}
         </Link>
-        <Link to={`/profile/wallet`}>
+        <Link
+          to={
+            user?.role === "doctor"
+              ? "/doctor/dashboard/wallet"
+              : `/profile/wallet`
+          }
+        >
           <DropdownMenuItem className="flex justify-between items-center w-full cursor-pointer">
             <span className="flex gap-1">
               <Wallet className="inline-block text-zinc-700" size={20} />

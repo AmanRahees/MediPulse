@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/widgets/ui/button";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,10 +11,12 @@ import {
 } from "@/widgets/ui/dropdown-menu";
 import { ScrollArea } from "@/widgets/ui/scroll-area";
 import { User, Settings, Power, Bell, Mail } from "lucide-react";
+import AuthContext from "@/contexts/AuthContext";
 import { Notification } from "@/data/notification";
 import "./header.css";
 
 function Header() {
+  const { userData, Logout } = useContext(AuthContext);
   return (
     <header className="adm-header_">
       <DropdownMenu>
@@ -77,31 +78,34 @@ function Header() {
                 className="w-10 rounded-full"
               />
               <div>
-                <p className="font-bold text-main">Aman Rahees</p>
+                <p className="font-bold text-main capitalize">
+                  {userData?.username}
+                </p>
                 <small className="text-gray-500">Administrator</small>
               </div>
             </div>
           </DropdownMenuLabel>
           <hr className="my-1 border-gray-300" />
           <DropdownMenuGroup className="px-1">
-            <DropdownMenuItem>
-              <Link className="flex items-center gap-2">
+            <Link>
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
                 <User className="inline-block text-zinc-700" size={20} />
                 Profile
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link className="flex items-center gap-2">
+              </DropdownMenuItem>
+            </Link>
+            <Link>
+              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
                 <Settings className="inline-block text-zinc-700" size={20} />
                 Settings
-              </Link>
-            </DropdownMenuItem>
+              </DropdownMenuItem>
+            </Link>
             <hr className="my-1 border-gray-300" />
-            <DropdownMenuItem>
-              <Link className="flex items-center gap-2 text-red-600 hover:text-red-600">
-                <Power />
-                Logout
-              </Link>
+            <DropdownMenuItem
+              onClick={Logout}
+              className="flex items-center gap-2 text-red-600 focus:text-red-600 cursor-pointer"
+            >
+              <Power />
+              Logout
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>

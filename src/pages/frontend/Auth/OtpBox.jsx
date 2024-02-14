@@ -12,6 +12,7 @@ import {
 import OtpInput from "react-otp-input";
 import axiosInstance from "@/services/axios";
 import VerificationImg from "@/assets/images/verify.png";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 function OtpBox({ email, setIsVerified, isEmailValid }) {
   const [otp, setOtp] = useState(0);
@@ -67,11 +68,15 @@ function OtpBox({ email, setIsVerified, isEmailValid }) {
           <div className="flex justify-center">
             <img src={VerificationImg} alt="" className="w-[120px]" />
           </div>
-          <DialogDescription className="text-center">
-            Enter the 6 digit code send to{" "}
-            <span className="font-bold text-primary">{email}</span>
-            <span className="block text-red-600">{error}</span>
-          </DialogDescription>
+          {!is409 && (
+            <DialogDescription className="text-center">
+              Enter the 6 digit code send to{" "}
+              <span className="font-bold text-primary">{email}</span>
+            </DialogDescription>
+          )}
+          {is409 && (
+            <span className="block text-red-600 text-center">{error}</span>
+          )}
         </DialogHeader>
         {!is409 && (
           <div className="flex justify-center">
@@ -94,7 +99,7 @@ function OtpBox({ email, setIsVerified, isEmailValid }) {
           </div>
         )}
         <DialogFooter>
-          {!is409 && (
+          {!is409 ? (
             <button
               type="button"
               onClick={() => handleVerification(parseInt(otp, 10))}
@@ -102,6 +107,10 @@ function OtpBox({ email, setIsVerified, isEmailValid }) {
             >
               Submit
             </button>
+          ) : (
+            <DialogClose className="bg-primary text-white py-2 px-3 rounded-md text-sm">
+              Close
+            </DialogClose>
           )}
         </DialogFooter>
       </DialogContent>

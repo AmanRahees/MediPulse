@@ -6,33 +6,65 @@ import {
   faLocationDot,
   faPowerOff,
 } from "@fortawesome/free-solid-svg-icons";
+import { Stethoscope } from "lucide-react";
+import { apiUrl } from "@/services/constants";
+import { Skeleton } from "@/widgets/ui/skeleton";
+import { ApprovedIcon } from "@/components/Icons";
+import { stringDOB, getAge } from "@/func/DOB";
 
-Aside.propTypes = {
-  items: PropTypes.array,
-};
-
-function Aside({ items }) {
+function Aside({ items, userInfo, loading, role }) {
   const location = useLocation();
   return (
     <aside className="pfl_n1 border">
-      <div className="flex flex-col justify-center items-center gap-1 p-5">
-        <img
-          src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
-          alt=""
-          className="w-[80px] border rounded-full"
-        />
-        <div className="text-center">
-          <p className="font-bold text-gray-700">Aman Rahees</p>
-          <small className="flex justify-center items-center gap-1 text-gray-600">
-            <FontAwesomeIcon icon={faCake} className="mb-1" /> 04 June 2004, 19
-            years
-          </small>
-          <small className="flex justify-center items-center gap-1 text-gray-600">
-            <FontAwesomeIcon icon={faLocationDot} className="mb-1" />{" "}
-            Mananthavady, Kerala
-          </small>
+      {!loading ? (
+        <div className="flex flex-col justify-center items-center gap-1 p-5">
+          <img
+            src={
+              userInfo?.picture
+                ? `${apiUrl + userInfo.picture}`
+                : "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
+            }
+            alt=""
+            className="w-[80px] border rounded-full"
+          />
+          {role === "doctor" ? (
+            <div className="text-center">
+              <p className="font-bold text-gray-800">
+                Dr. {userInfo?.name}
+                {userInfo?.is_approved ? <ApprovedIcon /> : ""}
+              </p>
+              <small className="font-bold text-secondary">
+                <Stethoscope size={15} className="inline-block" />{" "}
+                {userInfo?.speciality ? userInfo.speciality : "-"}
+              </small>
+            </div>
+          ) : (
+            <div className="text-center">
+              <p className="font-bold text-gray-700">
+                {userInfo?.first_name}
+                {userInfo?.last_name}
+              </p>
+              <small className="flex justify-center items-center gap-1 text-gray-600">
+                <FontAwesomeIcon icon={faCake} className="mb-1" />{" "}
+                {stringDOB(userInfo?.DOB)}, {getAge("2024-01-15")}
+              </small>
+              <small className="flex justify-center items-center gap-1 text-gray-600">
+                <FontAwesomeIcon icon={faLocationDot} className="mb-1" />{" "}
+                {userInfo?.city}, {userInfo?.state}
+              </small>
+            </div>
+          )}
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center gap-1 p-5">
+          <Skeleton className="w-[80px] h-[80px] bg-zinc-200 border rounded-full" />
+          <div className="text-center">
+            <Skeleton className="bg-zinc-200 h-4 w-[160px] rounded-none my-1" />
+            <Skeleton className="bg-zinc-200 h-4 w-[160px] rounded-none my-1" />
+            <Skeleton className="bg-zinc-200 h-4 w-[160px] rounded-none my-1" />
+          </div>
+        </div>
+      )}
       <hr />
       <div className="">
         {items.map((item, index) => (
@@ -55,5 +87,12 @@ function Aside({ items }) {
     </aside>
   );
 }
+
+Aside.propTypes = {
+  items: PropTypes.array,
+  userInfo: PropTypes.object,
+  loading: PropTypes.bool,
+  role: PropTypes.string,
+};
 
 export default Aside;

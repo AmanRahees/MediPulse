@@ -16,7 +16,6 @@ const ErrorInfo = () => {
 function Register() {
   const navigate = useNavigate();
   const { setAuthTokens, setUserData } = useContext(AuthContext);
-  const [role, setRole] = useState("patient");
   const [isVerified, setIsVerified] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [formData, setFormData] = useState({
@@ -24,7 +23,7 @@ function Register() {
     email: "",
     password: "",
     gender: "",
-    role: role,
+    role: "patient",
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,6 +31,9 @@ function Register() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setFormErrors({ ...formErrors, [name]: "" });
+  };
+  const handleRoleChange = (value) => {
+    setFormData({ ...formData, role: value });
   };
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -83,19 +85,23 @@ function Register() {
           </div>
           <div className="flex gap-2">
             <button
-              onClick={() => setRole("Patient")}
+              onClick={() => handleRoleChange("patient")}
               type="button"
               className={`w-1/2 rounded-md ${
-                role === "patient" ? "bg-primary text-white" : "bg-blue-50"
+                formData.role === "patient"
+                  ? "bg-primary text-white"
+                  : "bg-blue-50"
               } py-2`}
             >
               Patient
             </button>
             <button
-              onClick={() => setRole("doctor")}
+              onClick={() => handleRoleChange("doctor")}
               type="button"
               className={`w-1/2 rounded-md ${
-                role === "Doctor" ? "bg-primary text-white" : "bg-blue-50"
+                formData.role === "doctor"
+                  ? "bg-primary text-white"
+                  : "bg-blue-50"
               } py-2`}
             >
               Doctor
