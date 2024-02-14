@@ -8,7 +8,7 @@ function Loader() {
   return (
     <div
       className={`flex justify-center items-center h-screen ${
-        location.pathname.includes("/admin") ? "bg-main" : "bg-primary-color"
+        location.pathname.includes("/admin") ? "bg-main" : "bg-primary"
       }`}
     >
       <div className="_loader"></div>

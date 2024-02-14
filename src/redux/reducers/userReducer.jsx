@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer, createAction } from "@reduxjs/toolkit";
 import {
   getAdminInfo,
   getDoctorInfo,
   getPatientInfo,
+  updateUserInfo,
 } from "@/redux/actions/userActions";
 
 const initialState = {
@@ -45,6 +46,10 @@ const userReducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getAdminInfo.rejected, (state) => {
     state.loading = false;
+  });
+  // update for all
+  builder.addCase(updateUserInfo, (state, action) => {
+    state.userInfo = action.payload;
   });
 });
 

@@ -1,5 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleCheck,
+  faCircleInfo,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const ApprovedIcon = () => {
   return (
@@ -9,4 +13,11 @@ export const ApprovedIcon = () => {
       size="sm"
     />
   );
+};
+
+export const ErrorInfo = () => {
+  return <FontAwesomeIcon icon={faCircleInfo} className="text-red-600" />;
+};
+export const LoadSpinner = () => {
+  return <FontAwesomeIcon icon={faSpinner} className="animate-spin" />;
 };

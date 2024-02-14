@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import axiosInstance from "@/services/axios";
 
 export const getPatientInfo = createAsyncThunk(
@@ -31,3 +31,5 @@ export const getAdminInfo = createAsyncThunk(
     return response.data;
   }
 );
+
+export const updateUserInfo = createAction("updateUserInfo");

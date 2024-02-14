@@ -25,7 +25,7 @@ function Aside({ items, userInfo, loading, role }) {
                 : "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
             }
             alt=""
-            className="w-[80px] border rounded-full"
+            className="w-[80px] aspect-square border rounded-full"
           />
           {role === "doctor" ? (
             <div className="text-center">
