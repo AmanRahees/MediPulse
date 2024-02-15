@@ -24,7 +24,7 @@ function Aside({ items, userInfo, loading, role }) {
                 ? `${apiUrl + userInfo.picture}`
                 : "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
             }
-            alt=""
+            alt="picture"
             className="w-[80px] aspect-square border rounded-full"
           />
           {role === "doctor" ? (

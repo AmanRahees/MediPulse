@@ -1,5 +1,9 @@
+/* eslint-disable no-unused-vars */
+import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import useAxios from "@/services/useAxios";
 import { LogOut, User, Wallet, LayoutDashboard } from "lucide-react";
 import {
   DropdownMenu,
@@ -9,8 +13,37 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/widgets/ui/dropdown-menu";
+import {
+  getPatientInfo,
+  getDoctorInfo,
+  makeUserRequest,
+} from "@/redux/actions/userActions";
 
 const NavDropdown = ({ user, userLogout }) => {
+  const api = useAxios();
+  const dispatch = useDispatch();
+  const { userInfo, loading } = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(makeUserRequest());
+    if (user?.role === "doctor") {
+      api
+        .get(`contexts/doctorInfo/${user?.user_id}`)
+        .then((response) => {
+          dispatch(getDoctorInfo(response.data));
+        })
+        .catch(() => {});
+    } else if (user?.role === "admin") {
+      //
+    } else if (user?.role === "patient") {
+      api
+        .get(`contexts/patientInfo/${user?.user_id}`)
+        .then((response) => {
+          dispatch(getPatientInfo(response.data));
+        })
+        .catch(() => {});
+    }
+    // eslint-disable-next-line
+  }, [dispatch, user]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none p-1">

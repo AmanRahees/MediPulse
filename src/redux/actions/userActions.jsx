@@ -1,35 +1,11 @@
-/* eslint-disable no-unused-vars */
-import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import axiosInstance from "@/services/axios";
+import { createAction } from "@reduxjs/toolkit";
 
-export const getPatientInfo = createAsyncThunk(
-  "user/getPatientInfo",
-  async (userData) => {
-    const response = await axiosInstance.get(
-      `contexts/patientInfo/${userData?.user_id}`
-    );
-    return response.data;
-  }
-);
+export const makeUserRequest = createAction("makeUserRequest");
 
-export const getDoctorInfo = createAsyncThunk(
-  "user/getDoctorInfo",
-  async (userData) => {
-    const response = await axiosInstance.get(
-      `contexts/doctorInfo/${userData?.user_id}`
-    );
-    return response.data;
-  }
-);
+export const getPatientInfo = createAction("getPatientInfo");
 
-export const getAdminInfo = createAsyncThunk(
-  "user/getAdminInfo",
-  async (userData) => {
-    const response = await axiosInstance.get(
-      `contexts/adminInfo/${userData?.user_id}`
-    );
-    return response.data;
-  }
-);
+export const getDoctorInfo = createAction("getDoctorInfo");
+
+export const getAdminInfo = createAction("getAdminInfo");
 
 export const updateUserInfo = createAction("updateUserInfo");

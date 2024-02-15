@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { AdminPrivateRoute, AdminCredentialRoute } from "@/routes/AdminRoute";
@@ -23,7 +22,6 @@ import Login from "./pages/frontend/Auth/Login";
 import Register from "./pages/frontend/Auth/Register";
 
 // Doctor
-import DoctorSetup from "./pages/frontend/AccountSetup/AccountSetup";
 import DoctorDashboard from "./pages/frontend/Dashboard/Dashboard";
 import DoctorAppointments from "./pages/frontend/Dashboard/Appoinments";
 import DoctorPatients from "./pages/frontend/Dashboard/Patients";
@@ -69,7 +67,6 @@ function App() {
           </Route>
 
           <Route element={<DoctorRoute />}>
-            <Route path="/register/profile-setup" element={<DoctorSetup />} />
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
             <Route
               path="/doctor/dashboard/appointments"
