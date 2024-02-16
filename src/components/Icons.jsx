@@ -4,6 +4,7 @@ import {
   faBuilding,
   faCircleCheck,
   faCircleInfo,
+  faCloudArrowUp,
   faEnvelope,
   faHouseChimneyMedical,
   faLocationDot,
@@ -15,6 +16,7 @@ import {
   faSpinner,
   faStar,
   faStethoscope,
+  faTrashCan,
   faVenus,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -72,4 +74,18 @@ export const Company = () => {
 };
 export const Award = () => {
   return <FontAwesomeIcon icon={faAward} />;
+};
+export const RequiredStar = () => {
+  return <span className="text-red-600">*</span>;
+};
+export const FileUpload = () => {
+  return <FontAwesomeIcon icon={faCloudArrowUp} />;
+};
+export const FileTrash = () => {
+  return (
+    <FontAwesomeIcon
+      icon={faTrashCan}
+      className="bg-red-600 text-white text-xs p-1 rounded"
+    />
+  );
 };

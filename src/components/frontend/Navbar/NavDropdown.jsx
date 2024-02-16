@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import useAxios from "@/services/useAxios";
+import { apiUrl } from "@/services/constants";
 import { LogOut, User, Wallet, LayoutDashboard } from "lucide-react";
+import { Skeleton } from "@/widgets/ui/skeleton";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,23 +49,43 @@ const NavDropdown = ({ user, userLogout }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none p-1">
-        <img
-          src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
-          alt=""
-          className="w-[40px] aspect-square rounded-full"
-        />
+        {!loading ? (
+          <img
+            src={
+              userInfo?.picture
+                ? `${apiUrl + userInfo.picture}`
+                : "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
+            }
+            alt="picture"
+            className="w-10 aspect-square rounded-full"
+          />
+        ) : (
+          <Skeleton className="w-10 aspect-square rounded-full bg-zinc-200" />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-max mr-5 border-gray-300">
         <DropdownMenuLabel>
           <div className="flex gap-2 items-center">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoqWIPKg9kRQhn9r3qgpcRSACAXvg-dbTOWQiDN6b5ahLRZ-AU_ioL_uXv5Un0kNGPNhE&usqp=CAU"
-              alt=""
-              className="w-10 rounded-full"
-            />
+            {!loading ? (
+              <img
+                src={
+                  userInfo?.picture
+                    ? `${apiUrl + userInfo.picture}`
+                    : "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
+                }
+                alt="picture"
+                className="w-10 aspect-square rounded-full"
+              />
+            ) : (
+              <Skeleton className="w-10 aspect-square rounded-full bg-zinc-200" />
+            )}
             <div>
               <p className="font-bold text-main text-ellipsis line-clamp-1 overflow-hidden max-w-[120px]">
-                {user?.username}
+                {user?.role === "doctor"
+                  ? userInfo?.name
+                  : user?.role === "patient"
+                  ? `${userInfo?.first_name} ${userInfo?.last_name}`
+                  : user?.username}
               </p>
               <small className="text-gray-500 capitalize">{user?.role}</small>
             </div>

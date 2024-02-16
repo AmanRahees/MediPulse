@@ -29,6 +29,7 @@ import DoctorTimings from "./pages/frontend/Dashboard/Timings";
 import DoctorSlots from "./pages/frontend/Dashboard/Slots";
 import DoctorReviews from "./pages/frontend/Dashboard/Reviews";
 import DoctorProfile from "./pages/frontend/Dashboard/Profile";
+import DoctorEditProfile from "./pages/frontend/Dashboard/EditProfile";
 import DoctorWallet from "./pages/frontend/Dashboard/Wallet";
 
 // Administrator
@@ -88,6 +89,10 @@ function App() {
             <Route
               path="/doctor/dashboard/profile"
               element={<DoctorProfile />}
+            />
+            <Route
+              path="/doctor/dashboard/profile/edit"
+              element={<DoctorEditProfile />}
             />
             <Route path="/doctor/dashboard/wallet" element={<DoctorWallet />} />
           </Route>
