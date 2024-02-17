@@ -64,7 +64,7 @@ function Profile() {
             )}
             {!loading ? (
               <p className="text-secondary my-1">
-                <DocSpeciality /> {userInfo?.speciality}
+                <DocSpeciality /> {userInfo?.speciality?.speciality_name}
               </p>
             ) : (
               <Skeleton className="w-[200px] h-4 bg-zinc-200 my-1" />

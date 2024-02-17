@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
+import { apiUrl } from "@/services/constants";
 import { Label } from "@/widgets/ui/label";
 import { Input } from "@/widgets/ui/input";
 import {
@@ -18,7 +19,7 @@ function EditClinic({
 }) {
   const inputRef = useRef(null);
   const [uploads, setUploads] = useState(formData.clinic_images || []);
-  const handleImageUploads = (e) => {
+  const handleImageUploads = (e, index) => {
     const file = e.target.files[0];
     var maxSize = 3 * 1024 * 1024;
     inputRef.current.value = null;
@@ -27,8 +28,10 @@ function EditClinic({
       error.clinic_images = "Choosen image is larger than 5MB.";
       setFormErrors(error);
     } else {
-      setUploads([...uploads, file]);
-      setFormData({ ...formData, clinic_images: [...uploads, file] });
+      const updatedUploads = [...uploads];
+      updatedUploads[index] = { ...uploads[index], clinic_image: file };
+      setUploads(updatedUploads);
+      setFormData({ ...formData, clinic_images: updatedUploads });
     }
   };
   const handlePopImage = (idx) => {
@@ -79,7 +82,7 @@ function EditClinic({
           <Input
             type="file"
             name="clinic_images"
-            onChange={handleImageUploads}
+            onChange={(e) => handleImageUploads(e, uploads.length)}
             ref={inputRef}
             accept="image/*"
             className="absolute h-full w-full opacity-0 uploads-hidden"
@@ -97,7 +100,7 @@ function EditClinic({
           </small>
         )}
         <div className="flex gap-3 my-2">
-          {uploads.map((image, idx) => (
+          {uploads.map((item, idx) => (
             <div className="relative" key={idx}>
               <button
                 type="button"
@@ -108,9 +111,9 @@ function EditClinic({
               </button>
               <img
                 src={
-                  typeof image === "string"
-                    ? "https://doccure.dreamstechnologies.com/html/template/assets/img/features/feature-01.jpg"
-                    : URL.createObjectURL(image)
+                  typeof item?.clinic_image === "string"
+                    ? apiUrl + item?.clinic_image
+                    : URL.createObjectURL(item?.clinic_image)
                 }
                 alt="clinic image"
                 className="w-20 aspect-square border rounded-md bg-zinc-100"

@@ -35,7 +35,9 @@ function Aside({ items, userInfo, loading, role }) {
               </p>
               <small className="font-bold text-secondary">
                 <Stethoscope size={15} className="inline-block" />{" "}
-                {userInfo?.speciality ? userInfo.speciality : "-"}
+                {userInfo?.speciality?.speciality_name
+                  ? userInfo.speciality.speciality_name
+                  : "-"}
               </small>
             </div>
           ) : (
