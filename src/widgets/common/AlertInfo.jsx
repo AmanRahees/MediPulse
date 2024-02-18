@@ -10,7 +10,7 @@ const AlertInfo = ({ type, message, classValues }) => {
       return (
         <Info
           className="h-4 w-4"
-          color={`${type === "info" ? "#555" : "#ca8a04"}`}
+          color={`${type === "info" ? "#075985" : "#ca8a04"}`}
         />
       );
     } else if (type === "success") {

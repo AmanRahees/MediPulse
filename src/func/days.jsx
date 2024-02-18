@@ -12,6 +12,12 @@ export const formatLongDate = (input) => {
   return formattedDate;
 };
 
+export const getYear = (input) => {
+  let date = new Date(input);
+  let year = date.getFullYear();
+  return year;
+};
+
 export const getWeekDay = (input) => {
   const daysOfWeek = [
     "Sunday",

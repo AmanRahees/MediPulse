@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAward,
-  faBuilding,
+  faHospital,
   faCircleCheck,
   faCircleInfo,
   faCloudArrowUp,
@@ -69,8 +69,8 @@ export const ClinicAddress = () => {
 export const School = () => {
   return <FontAwesomeIcon icon={faSchool} />;
 };
-export const Company = () => {
-  return <FontAwesomeIcon icon={faBuilding} />;
+export const Hospital = () => {
+  return <FontAwesomeIcon icon={faHospital} />;
 };
 export const Award = () => {
   return <FontAwesomeIcon icon={faAward} />;

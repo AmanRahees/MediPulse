@@ -33,6 +33,7 @@ function EditExperience({ formData, setFormData, formErrors }) {
     updatedExperiences[index] = {
       ...updatedExperiences[index],
       present: e,
+      date_to: e ? "" : updatedExperiences[index].date_to,
     };
     setExperiences(updatedExperiences);
     setFormData({ ...formData, experience: updatedExperiences });

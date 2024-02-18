@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UploadCloud } from "lucide-react";
 import AuthContext from "@/contexts/AuthContext";
@@ -27,6 +27,7 @@ import EditAwards from "@/components/frontend/Doctor/EditAwards";
 
 const EditProfile = () => {
   const api = useAxios();
+  const navigate = useNavigate();
   const { userData } = useContext(AuthContext);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
@@ -190,10 +191,10 @@ const EditProfile = () => {
         .then((response) => {
           dispatch(updateUserInfo(response.data));
           setIsSubmitting(false);
+          navigate(-1);
         })
-        .catch((error) => {
+        .catch(() => {
           setIsSubmitting(false);
-          console.log(error.response);
         });
     }
     console.log("d: ", formData);

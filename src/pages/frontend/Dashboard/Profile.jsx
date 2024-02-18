@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -17,9 +16,12 @@ import {
   Clinic,
   ClinicAddress,
   School,
-  Company,
+  Hospital,
   Award,
+  ApprovedIcon,
 } from "@/components/Icons";
+import { formatDate } from "@/func/days";
+import { getYear } from "date-fns";
 
 function Profile() {
   const { userData } = useContext(AuthContext);
@@ -27,11 +29,13 @@ function Profile() {
   return (
     <Board>
       <div className="">
-        <AlertInfo
-          type="warningInfo"
-          message="To get Approval please complete your profile. We'll review manually and approve within 3 days."
-          classValues="text-yellow-600 bg-yellow-50 border-yellow-100 mb-5"
-        />
+        {!userInfo?.is_approved && (
+          <AlertInfo
+            type="warningInfo"
+            message="To get Approval please complete your profile. We'll review manually and approve within 3 days."
+            classValues="text-yellow-600 bg-yellow-50 border-yellow-100 mb-5"
+          />
+        )}
         <p className="font-bold text-xl mb-2 text-sky-800">
           Basic Information{" "}
           <Link
@@ -58,7 +62,9 @@ function Profile() {
           )}
           <div className="block w-full">
             {!loading ? (
-              <p className="my-1 text-xl font-bold">Dr. {userInfo?.name}</p>
+              <p className="flex items-center gap-1 my-1 text-xl font-bold">
+                Dr. {userInfo?.name} <ApprovedIcon />
+              </p>
             ) : (
               <Skeleton className="w-[250px] h-8 bg-zinc-200 my-1" />
             )}
@@ -132,76 +138,85 @@ function Profile() {
         </p>
         <hr className="my-4" />
         {!loading ? (
-          <p className="text-secondary my-1 text-xl font-bold">
-            <Clinic /> Chillex HealthCare
+          <p className="text-secondary my-1 text-xl font-bold capitalize">
+            <Clinic /> {userInfo?.clinic_name}
           </p>
         ) : (
           <Skeleton className="w-[300px] h-8 bg-zinc-200 my-1" />
         )}
         {!loading ? (
-          <p className="text-gray-700 my-1">
-            <ClinicAddress /> Near Ummer Gate, Madam, Muzhappilanghad
+          <p className="text-gray-700 my-1 capitalize">
+            <ClinicAddress /> {userInfo?.clinic_address}
           </p>
         ) : (
           <Skeleton className="w-[200px] h-4 bg-zinc-200 my-1" />
         )}
         {!loading ? (
           <div className="flex flex-wrap gap-2 my-2">
-            {[1, 2, 3, 4, 5].map((img, index) => (
-              <img
-                key={index}
-                src="https://play-lh.googleusercontent.com/toXtzLf25z4cr9VYO6-Job-ArlYd7aYYhhlfZq5rdGa6B41dnaqwukMT9tzL2Tx6Kw=w240-h480-rw"
-                alt=""
-                className="w-[60px]"
-              />
-            ))}
+            {userInfo?.clinic_images &&
+              userInfo?.clinic_images.map((img, index) => (
+                <img
+                  key={index}
+                  src={apiUrl + img?.clinic_image}
+                  alt=""
+                  className="w-[60px]"
+                />
+              ))}
           </div>
         ) : (
           <Skeleton className="w-[400px] h-20 bg-zinc-200 my-1" />
         )}
         <p className="font-bold text-xl mb-2 text-sky-800 my-4">Education</p>
         <hr className="my-4" />
-        {[1, 2, 3, 4].map((ed, index) => (
-          <div className="w-full md:px-5 my-5" key={index}>
-            <p className="flex justify-between gap-3">
-              <span className="font-bold text-lg text-secondary">
-                Bachelor of Computer Application
-              </span>
-              <small className="block text-nowrap">2020-2022</small>
-            </p>
-            <p className="text-gray-700">
-              <School /> Fr.GKM HSS
-            </p>
-          </div>
-        ))}
+        {userInfo?.education &&
+          userInfo?.education.map((edu, index) => (
+            <div className="w-full md:px-5 my-5" key={index}>
+              <p className="flex justify-between gap-3">
+                <span className="font-bold text-lg text-zinc-700">
+                  {edu?.degree}
+                </span>
+                <small className="block text-nowrap">
+                  {getYear(edu?.date_from)}-{getYear(edu?.date_to)}
+                </small>
+              </p>
+              <p className="text-gray-700 capitalize">
+                <School /> {edu?.institute}
+              </p>
+            </div>
+          ))}
         <p className="font-bold text-xl mb-2 text-sky-800 my-4">Experience</p>
         <hr className="my-4" />
-        {[1, 2, 3, 4].map((ed, index) => (
-          <div className="w-full md:px-5 my-5" key={index}>
-            <p className="flex justify-between gap-3">
-              <span className="font-bold text-lg text-secondary">
-                Bachelor of Computer Application
-              </span>
-              <small className="block text-nowrap">2020-2022</small>
-            </p>
-            <p className="text-gray-700">
-              <Company /> Fr.GKM HSS
-            </p>
-          </div>
-        ))}
+        {userInfo?.experience &&
+          userInfo?.experience.map((exp, index) => (
+            <div className="w-full md:px-5 my-5" key={index}>
+              <p className="flex justify-between gap-3">
+                <span className="font-bold text-lg text-zinc-700 capitalize">
+                  {exp?.position}
+                </span>
+                <small className="block text-nowrap">
+                  {getYear(exp?.date_from)}-
+                  {exp?.present ? "Present" : exp?.date_to}
+                </small>
+              </p>
+              <p className="text-gray-700 capitalize">
+                <Hospital /> {exp?.hospital_name}
+              </p>
+            </div>
+          ))}
         <p className="font-bold text-xl mb-2 text-sky-800 my-4">Awards</p>
         <hr className="my-4" />
-        {[1, 2, 3, 4].map((ed, index) => (
-          <div className="w-full md:px-5 my-5" key={index}>
-            <p className="text-secondary">
-              <Award />{" "}
-              <span className="text-lg font-bold">
-                Bachelor of Computer Application
-              </span>
-            </p>
-            <small className="block text-nowrap">23 May, 2023</small>
-          </div>
-        ))}
+        {userInfo?.awards &&
+          userInfo?.awards.map((award, index) => (
+            <div className="w-full md:px-5 my-5" key={index}>
+              <p className="text-zinc-700">
+                <Award />{" "}
+                <span className="text-lg font-bold">{award?.award_name}</span>
+              </p>
+              <small className="block text-nowrap">
+                {formatDate(award?.award_year)}
+              </small>
+            </div>
+          ))}
       </div>
     </Board>
   );
