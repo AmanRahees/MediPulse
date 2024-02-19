@@ -84,7 +84,7 @@ const NavDropdown = ({ user, userLogout }) => {
                 {user?.role === "doctor"
                   ? userInfo?.name
                   : user?.role === "patient"
-                  ? `${userInfo?.first_name} ${userInfo?.last_name}`
+                  ? `${userInfo?.first_name} ${userInfo?.last_name ?? ""}`
                   : user?.username}
               </p>
               <small className="text-gray-500 capitalize">{user?.role}</small>

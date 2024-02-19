@@ -13,10 +13,8 @@ import {
   SelectValue,
   SelectItem,
 } from "@/widgets/ui/select";
-import DatePicker from "@/widgets/common/DatePicker";
 import Board from "@/components/frontend/Board/Board";
 import { BLOOD_GROUPS } from "@/services/constants";
-import { formatDate } from "@/func/days";
 import Loader from "@/components/frontend/Loader/Loader";
 import { ErrorInfo, LoadSpinner } from "@/components/Icons";
 import { updateUserInfo } from "@/redux/actions/userActions";
@@ -59,19 +57,18 @@ function Profile() {
     setFormData({ ...formData, picture: file });
   };
   const validateForm = () => {
+    const { first_name, phone, city, state } = formData;
     let errors = {};
-    if (formData.first_name.length < 3) {
+    if (first_name.length < 3 || first_name.length > 20) {
       errors.first_name = "First Name must be between 3 and 20 characters.";
     }
-    if (formData.phone === null) {
-      errors.phone = "Phone must have be 10 characters.";
-    } else if (formData.phone.length < 10) {
-      errors.phone = "Phone must have be 10 characters.";
+    if (!phone || phone.toString().length !== 10) {
+      errors.phone = "Phone must be 10 characters.";
     }
-    if (formData.city.length < 3) {
+    if (!city || city.length < 3) {
       errors.city = "City must have atleast 3 characters.";
     }
-    if (formData.state.length < 3) {
+    if (!state || state.length < 3) {
       errors.state = "State must have atleast 3 characters.";
     }
     setFormErrors(errors);
@@ -82,19 +79,8 @@ function Profile() {
     let valid = validateForm();
     if (valid) {
       setIsSubmitting(true);
-      let newFormData = new FormData();
-      newFormData.append("first_name", formData?.first_name);
-      newFormData.append("last_name", formData?.last_name);
-      newFormData.append("phone", formData?.phone);
-      newFormData.append("blood_group", formData?.blood_group);
-      newFormData.append("DOB", formData?.DOB);
-      newFormData.append("city", formData?.city);
-      newFormData.append("state", formData?.state);
-      if (typeof formData?.picture !== "string") {
-        newFormData.append("picture", formData?.picture);
-      }
       api
-        .put(`contexts/patientInfo/${formData?.id}`, newFormData, {
+        .put(`contexts/patientInfo/${formData?.id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -127,7 +113,11 @@ function Profile() {
             />
           ) : (
             <img
-              src={URL.createObjectURL(formData?.picture)}
+              src={
+                formData?.picture
+                  ? URL.createObjectURL(formData?.picture)
+                  : "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
+              }
               alt="picture"
               className="w-[100px] aspect-square rounded-full border"
             />
@@ -155,7 +145,7 @@ function Profile() {
             <Input
               type="text"
               name="first_name"
-              value={formData.first_name}
+              value={formData.first_name ?? ""}
               onChange={handleInputChange}
               autoComplete="off"
               maxLength={20}
@@ -172,7 +162,7 @@ function Profile() {
             <Input
               type="text"
               name="last_name"
-              value={formData.last_name}
+              value={formData.last_name ?? ""}
               onChange={handleInputChange}
               autoComplete="off"
               maxLength={20}
@@ -186,9 +176,13 @@ function Profile() {
           </div>
           <div className="relative my-2">
             <Label className="mb-1 block">Date of Birth</Label>
-            <DatePicker
-              onChange={(e) => console.log(formatDate(e))}
-              isMax={true}
+            <input
+              type="date"
+              name="DOB"
+              value={formData?.DOB || ""}
+              max={new Date().toISOString().split("T")[0]}
+              onChange={(e) => handleInputChange(e)}
+              className="p-2 border border-gray-200 focus:border-sky-200 w-full rounded-md outline-none"
             />
           </div>
           <div className="relative my-2">
@@ -241,7 +235,7 @@ function Profile() {
             <Input
               type="text"
               name="city"
-              value={formData.city}
+              value={formData.city ?? ""}
               onChange={handleInputChange}
               autoComplete="off"
               maxLength={20}
@@ -258,7 +252,7 @@ function Profile() {
             <Input
               type="text"
               name="state"
-              value={formData.state}
+              value={formData.state ?? ""}
               onChange={handleInputChange}
               autoComplete="off"
               maxLength={20}

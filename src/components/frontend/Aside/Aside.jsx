@@ -46,14 +46,19 @@ function Aside({ items, userInfo, loading, role }) {
                 {userInfo?.first_name}
                 {userInfo?.last_name}
               </p>
-              <small className="flex justify-center items-center gap-1 text-gray-600">
-                <FontAwesomeIcon icon={faCake} className="mb-1" />{" "}
-                {stringDOB(userInfo?.DOB)}, {getAge("2024-01-15")}
-              </small>
-              <small className="flex justify-center items-center gap-1 text-gray-600">
-                <FontAwesomeIcon icon={faLocationDot} className="mb-1" />{" "}
-                {userInfo?.city}, {userInfo?.state}
-              </small>
+              {userInfo?.DOB && (
+                <small className="flex justify-center items-center gap-1 text-gray-600">
+                  <FontAwesomeIcon icon={faCake} className="mb-1" />{" "}
+                  {stringDOB(userInfo?.DOB)}, {getAge(userInfo?.DOB)}
+                </small>
+              )}
+              {userInfo?.city ||
+                (userInfo?.state && (
+                  <small className="flex justify-center items-center gap-1 text-gray-600">
+                    <FontAwesomeIcon icon={faLocationDot} className="mb-1" />{" "}
+                    {userInfo?.city}, {userInfo?.state}
+                  </small>
+                ))}
             </div>
           )}
         </div>

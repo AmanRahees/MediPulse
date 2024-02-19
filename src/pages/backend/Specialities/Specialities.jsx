@@ -1,15 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faPen,
-  faCircleXmark,
-  faCircleInfo,
-} from "@fortawesome/free-solid-svg-icons";
-import { Input } from "@/widgets/ui/input";
-import { Textarea } from "@/widgets/ui/textarea";
+import { faTrash, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { Checkbox } from "@/widgets/ui/checkbox";
 import {
   Dialog,
@@ -127,7 +119,7 @@ const DeleteSpeciality = ({ speciality, setSpecialities }) => {
   const onDeleteClick = () => {
     api
       .delete(`admin/speciality/${speciality.id}`)
-      .then((response) => {
+      .then(() => {
         console.log(speciality);
         setSpecialities((prevSpecialities) =>
           prevSpecialities.filter((item) => item.id !== speciality?.id)
