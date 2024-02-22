@@ -68,33 +68,41 @@ const EditProfile = () => {
     setFormData({ ...formData, services });
   };
   const validateForm = () => {
+    const {
+      name,
+      phone,
+      consultation_fee,
+      location,
+      clinic_name,
+      clinic_images,
+      clinic_address,
+      services,
+    } = formData;
     let errors = {};
-    if (formData.name.length < 1) {
+    if (!name || name.length < 1) {
       errors.name = "This field is Required.";
     }
-    if (formData.phone === null) {
-      errors.phone = "Phone must have 10 characters.";
-    } else if (formData.phone.length < 10) {
+    if (!phone || phone.toString().length !== 10) {
       errors.phone = "Phone must have 10 characters.";
     }
-    if (formData.consultation_fee < 300) {
+    if (consultation_fee < 300) {
       errors.consultation_fee = "Consultation Fee must be atleast 300.";
     }
-    if (formData.location.length < 1) {
+    if (!location || location.length < 1) {
       errors.location = "This field is Required.";
     }
-    if (formData.services.length < 1) {
+    if (!services || services.length < 1) {
       errors.services = "Please add at least a service.";
     }
-    if (!formData.clinic_name || formData.clinic_name.trim() === "") {
+    if (!clinic_name || clinic_name.trim() === "") {
       errors.clinic_name = "Clinic name is required.";
     }
 
-    if (!formData.clinic_address || formData.clinic_address.trim() === "") {
+    if (!clinic_address || clinic_address.trim() === "") {
       errors.clinic_address = "Clinic address is required.";
     }
 
-    if (!formData.clinic_images || formData.clinic_images.length < 2) {
+    if (!clinic_images || clinic_images.length < 2) {
       errors.clinic_images = "Please upload at least 2 images of the clinic.";
     }
 
@@ -197,7 +205,6 @@ const EditProfile = () => {
           setIsSubmitting(false);
         });
     }
-    console.log("d: ", formData);
   };
   return (
     <Board>
@@ -218,7 +225,9 @@ const EditProfile = () => {
             ) : (
               <img
                 src={
-                  formData?.picture && URL.createObjectURL(formData?.picture)
+                  formData?.picture
+                    ? URL.createObjectURL(formData?.picture)
+                    : "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
                 }
                 alt="picture"
                 className="w-[100px] aspect-square rounded-full border"
@@ -332,7 +341,7 @@ const EditProfile = () => {
               <Input
                 type="text"
                 name="location"
-                value={formData.location}
+                value={formData.location || ""}
                 onChange={handleInputChange}
                 autoComplete="off"
                 className="focus:border-sky-200"
@@ -369,7 +378,7 @@ const EditProfile = () => {
             </Label>
             <TagsInput
               handleTagChange={handleServiceTagChange}
-              value={formData?.services}
+              value={formData?.services || []}
               max={5}
               placeholder="Enter Services"
             />

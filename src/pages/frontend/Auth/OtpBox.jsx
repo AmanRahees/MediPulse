@@ -36,6 +36,8 @@ function OtpBox({ email, setIsVerified, isEmailValid }) {
     }
   };
   const handleSendOtp = () => {
+    setIs409(false);
+    setError("");
     axiosInstance
       .post("accounts/verify", { email: email })
       .then((response) => {

@@ -26,23 +26,23 @@ const NavDropdown = ({ user, userLogout }) => {
   const dispatch = useDispatch();
   const { userInfo, loading } = useSelector((state) => state.user);
   useEffect(() => {
-    dispatch(makeUserRequest());
-    if (user?.role === "doctor") {
-      api
-        .get(`contexts/doctorInfo/${user?.user_id}`)
-        .then((response) => {
-          dispatch(getDoctorInfo(response.data));
-        })
-        .catch(() => {});
-    } else if (user?.role === "admin") {
-      //
-    } else if (user?.role === "patient") {
-      api
-        .get(`contexts/patientInfo/${user?.user_id}`)
-        .then((response) => {
-          dispatch(getPatientInfo(response.data));
-        })
-        .catch(() => {});
+    if (user?.role !== "admin") {
+      dispatch(makeUserRequest());
+      if (user?.role === "doctor") {
+        api
+          .get(`contexts/doctorInfo/${user?.user_id}`)
+          .then((response) => {
+            dispatch(getDoctorInfo(response.data));
+          })
+          .catch(() => {});
+      } else if (user?.role === "patient") {
+        api
+          .get(`contexts/patientInfo/${user?.user_id}`)
+          .then((response) => {
+            dispatch(getPatientInfo(response.data));
+          })
+          .catch(() => {});
+      }
     }
     // eslint-disable-next-line
   }, [dispatch, user]);
@@ -80,7 +80,7 @@ const NavDropdown = ({ user, userLogout }) => {
               <Skeleton className="w-10 aspect-square rounded-full bg-zinc-200" />
             )}
             <div>
-              <p className="font-bold text-main text-ellipsis line-clamp-1 overflow-hidden max-w-[120px]">
+              <p className="font-bold capitalize text-main text-ellipsis line-clamp-1 overflow-hidden w-[120px]">
                 {user?.role === "doctor"
                   ? userInfo?.name
                   : user?.role === "patient"
@@ -92,11 +92,45 @@ const NavDropdown = ({ user, userLogout }) => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link
-          to={user?.role === "doctor" ? "/doctor/dashboard" : `/profile`}
-          className="w-full h-full"
-        >
-          {user?.role === "doctor" ? (
+        {user?.role !== "admin" ? (
+          <>
+            <Link
+              to={user?.role === "doctor" ? "/doctor/dashboard" : `/profile`}
+              className="w-full h-full"
+            >
+              {user?.role === "doctor" ? (
+                <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
+                  <LayoutDashboard
+                    className="inline-block text-zinc-700"
+                    size={20}
+                  />
+                  Dashboard
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
+                  <User className="inline-block text-zinc-700" size={20} />{" "}
+                  Profile
+                </DropdownMenuItem>
+              )}
+            </Link>
+            <Link
+              to={
+                user?.role === "doctor"
+                  ? "/doctor/dashboard/wallet"
+                  : `/profile/wallet`
+              }
+            >
+              <DropdownMenuItem className="flex justify-between items-center w-full cursor-pointer">
+                <span className="flex gap-1">
+                  <Wallet className="inline-block text-zinc-700" size={20} />
+                  Wallet
+                </span>
+                <b className="block text-xs text-zinc-500">&#8377;5000.00</b>
+              </DropdownMenuItem>
+            </Link>
+          </>
+        ) : (
+          <Link to={"admin/dashboard"}>
             <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
               <LayoutDashboard
                 className="inline-block text-zinc-700"
@@ -104,27 +138,8 @@ const NavDropdown = ({ user, userLogout }) => {
               />
               Dashboard
             </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem className="flex items-center gap-1 cursor-pointer">
-              <User className="inline-block text-zinc-700" size={20} /> Profile
-            </DropdownMenuItem>
-          )}
-        </Link>
-        <Link
-          to={
-            user?.role === "doctor"
-              ? "/doctor/dashboard/wallet"
-              : `/profile/wallet`
-          }
-        >
-          <DropdownMenuItem className="flex justify-between items-center w-full cursor-pointer">
-            <span className="flex gap-1">
-              <Wallet className="inline-block text-zinc-700" size={20} />
-              Wallet
-            </span>
-            <b className="block text-xs text-zinc-500">&#8377;5000.00</b>
-          </DropdownMenuItem>
-        </Link>
+          </Link>
+        )}
         <DropdownMenuSeparator />
         <button className="w-full" onClick={userLogout}>
           <DropdownMenuItem className="flex items-center gap-1 text-red-600 focus:text-red-600 w-full">

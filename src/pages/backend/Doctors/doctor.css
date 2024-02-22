@@ -1,0 +1,44 @@
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 20px;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  background-color: var(--primary-color);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin-left: -3px;
+}
+
+.tml_container {
+  padding: 0 30px 10px 30px;
+  position: relative;
+  background-color: inherit;
+}
+
+.tml_container::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: -9px;
+  background-color: var(--primary-color);
+  top: 0;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.tml_content {
+  position: relative;
+}
+
+@media (max-width: 576px) {
+  .tml_container {
+    padding: 10px 20px;
+  }
+}

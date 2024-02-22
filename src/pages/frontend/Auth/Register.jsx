@@ -67,8 +67,12 @@ function Register() {
           setAuthTokens(data);
           setUserData(jwtDecode(data.access));
           localStorage.setItem("authTokens", JSON.stringify(data));
-          navigate("/");
           setIsSubmitting(false);
+          if (formData.role === "doctor") {
+            navigate("/doctor/dashboard/profile");
+          } else {
+            navigate("/");
+          }
         })
         .catch(() => {
           setIsSubmitting(false);

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import useAxios from "@/services/useAxios";
 import { apiUrl } from "@/services/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +16,7 @@ import {
 import Layout from "@/components/backend/Layout/Layout";
 import Breadcrumb from "@/components/backend/Elements/Breadcrumb";
 import Loader from "@/components/frontend/Loader/Loader";
+import { formatDate } from "@/func/days";
 
 function Doctors() {
   const api = useAxios();
@@ -87,21 +89,36 @@ function Doctors() {
                       <p>Dr. {doctor?.name}</p>
                     </div>
                   </TableCell>
-                  <TableCell>{doctor?.account}</TableCell>
-                  <TableCell>Cardiologist</TableCell>
-                  <TableCell>$0</TableCell>
-                  <TableCell>4.2</TableCell>
-                  <TableCell>Jan 28 2024</TableCell>
+                  <TableCell className="font-bold text-accent">
+                    <Link to={`overview/${doctor?.id}`}>
+                      {doctor?.account?.email}
+                    </Link>
+                  </TableCell>
                   <TableCell>
-                    {/* <button className="bg-blue-200 text-blue-700 py-1 px-2 text-xs rounded-2xl">
-                  Requested
-                </button> */}
-                    <button className="bg-green-200 text-green-700 py-1 px-2 text-xs rounded-2xl">
-                      Approved
-                    </button>
-                    {/* <button className="bg-red-200 text-red-700 py-1 px-2 text-xs rounded-2xl">
-                  Revoked
-                </button> */}
+                    {doctor?.speciality?.speciality_image && (
+                      <img
+                        src={apiUrl + doctor?.speciality?.speciality_image}
+                        alt=""
+                        className="inline-block w-[20px] mr-1 my-auto"
+                      />
+                    )}
+                    {doctor?.speciality?.speciality_name ?? "Not Set"}
+                  </TableCell>
+                  <TableCell>&#8377;{doctor?.earnings}</TableCell>
+                  <TableCell>{doctor?.ratings}</TableCell>
+                  <TableCell>
+                    {formatDate(doctor?.account?.created_at)}
+                  </TableCell>
+                  <TableCell>
+                    {!doctor?.is_approved ? (
+                      <button className="bg-blue-200 text-blue-700 py-1 px-2 text-xs rounded-2xl">
+                        pending
+                      </button>
+                    ) : (
+                      <button className="bg-green-200 text-green-700 py-1 px-2 text-xs rounded-2xl">
+                        Approved
+                      </button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

@@ -91,7 +91,7 @@ function Profile() {
             )}
             {!loading ? (
               <p className="text-gray-700 my-1">
-                <Phone /> {userInfo?.phone ? userInfo?.phone : "Not set"}
+                <Phone /> {userInfo?.phone ?? "Not Set"}
               </p>
             ) : (
               <Skeleton className="w-[200px] h-4 bg-zinc-200 my-1" />
@@ -105,8 +105,7 @@ function Profile() {
             )}
             {!loading ? (
               <p className="text-gray-700 my-1">
-                <Location />{" "}
-                {userInfo?.location ? userInfo?.location : "Not set"}
+                <Location /> {userInfo?.location ?? "Not Set"}
               </p>
             ) : (
               <Skeleton className="w-[200px] h-4 bg-zinc-200 my-1" />

@@ -37,6 +37,7 @@ import AdminLogin from "./pages/backend/Login/Login";
 import Dashboard from "./pages/backend/Dashboard/Dashboard";
 import Specialities from "./pages/backend/Specialities/Specialities";
 import DoctorsList from "./pages/backend/Doctors/Doctors";
+import DoctorOverview from "./pages/backend/Doctors/DocOverview";
 import PatientsList from "./pages/backend/Patients/Patients";
 
 function App() {
@@ -101,6 +102,10 @@ function App() {
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/specialities" element={<Specialities />} />
             <Route path="/admin/doctors" element={<DoctorsList />} />
+            <Route
+              path="/admin/doctors/overview/:id"
+              element={<DoctorOverview />}
+            />
             <Route path="/admin/patients" element={<PatientsList />} />
           </Route>
 

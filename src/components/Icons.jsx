@@ -23,8 +23,9 @@ import {
 export const ApprovedIcon = () => {
   return (
     <FontAwesomeIcon
+      title="Approved"
       icon={faCircleCheck}
-      className="mx-1 text-green-400"
+      className="mx-1 text-green-500"
       size="sm"
     />
   );

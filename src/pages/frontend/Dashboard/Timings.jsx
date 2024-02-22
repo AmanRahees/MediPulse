@@ -105,9 +105,10 @@ function Timings() {
           ) : (
             <span>sdaf</span>
           )}
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-4 gap-3">
             <p className="">Monday</p>
-            <Input />
+            <Input type="text" />
+            <Input type="text" />
           </div>
         </div>
       </div>

@@ -57,9 +57,14 @@ export const AuthProvider = ({ children }) => {
           navigate("/admin/dashboard");
         }
       })
-      .catch(() => {
-        setError("Invalid Email or Password!");
-        state(false);
+      .catch((error) => {
+        if (error.response.status === 403) {
+          setError("Permission Denied!");
+          state(false);
+        } else {
+          setError("Invalid Email or Password!");
+          state(false);
+        }
       });
   };
 

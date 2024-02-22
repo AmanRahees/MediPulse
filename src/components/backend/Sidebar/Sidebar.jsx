@@ -33,7 +33,7 @@ function Sidebar() {
               to={item.ItemPath}
               key={index}
               className={`sidebarItem_ ${
-                location.pathname === item.ItemPath ? "active" : ""
+                location.pathname.includes(item.ItemPath) ? "active" : ""
               }`}
             >
               <item.Icon /> <span>{item.ItemName}</span>

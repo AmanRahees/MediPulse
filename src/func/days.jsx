@@ -72,3 +72,28 @@ export const formatDateWithoutYear = (date) => {
 
   return `${day} ${month}.`;
 };
+
+export const totalYears = (fromDate, toDate = new Date()) => {
+  var fromYear = new Date(fromDate).getFullYear();
+  var fromMonth = new Date(fromDate).getMonth();
+  var toYear = new Date(toDate).getFullYear();
+  var toMonth = new Date(toDate).getMonth();
+
+  var yearsDiff = toYear - fromYear;
+  var monthsDiff = toMonth - fromMonth;
+
+  if (monthsDiff < 0) {
+    yearsDiff--;
+    monthsDiff += 12;
+  }
+
+  if (yearsDiff === 0 && monthsDiff === 0) {
+    return "New";
+  } else if (yearsDiff === 0) {
+    return `${monthsDiff} mo`;
+  } else if (monthsDiff === 0) {
+    return `${yearsDiff} yr`;
+  } else {
+    return `${yearsDiff} yr ${monthsDiff} mo`;
+  }
+};

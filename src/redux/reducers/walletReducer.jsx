@@ -16,12 +16,13 @@ const walletReducer = createReducer(initialState, (builder) => {
     state.loading = true;
   });
   builder.addCase(getWallet, (state, action) => {
-    state.userInfo = action.payload;
+    state.wallet = action.payload;
+    state.transactions = action.payload?.transactions;
     state.loading = false;
   });
   builder.addCase(updateWallet, (state, action) => {
     state.loading = true;
-    state.userInfo = action.payload;
+    state.wallet = action.payload;
     state.loading = false;
   });
 });
