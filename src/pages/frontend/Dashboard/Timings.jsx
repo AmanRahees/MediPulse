@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useAxios from "@/services/useAxios";
 import { Label } from "@/widgets/ui/label";
-import { Input } from "@/widgets/ui/input";
 import { Skeleton } from "@/widgets/ui/skeleton";
 import {
   Select,
@@ -13,9 +12,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/widgets/ui/select";
+import {
+  Table,
+  TableHeader,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@/widgets/ui/table";
 import Board from "@/components/frontend/Board/Board";
 import { SLOT_DURATIONS, DAYS } from "@/services/constants";
-import AddTimings from "@/components/frontend/Doctor/EditTimings";
+import EditTimings from "@/components/frontend/Doctor/EditTimings";
 import { LoadSpinner } from "@/components/Icons";
 import { updateUserInfo } from "@/redux/actions/userActions";
 import { formatTime } from "@/func/time";
@@ -25,28 +32,29 @@ function Timings() {
   const dispatch = useDispatch();
   const { userInfo, loading } = useSelector((state) => state.user);
   const [slotDuration, setSlotDuration] = useState(
-    userInfo?.slot_duration || "10 mins"
+    userInfo?.slot_duration ?? 10
   );
-  const [schedules, setSchedules] = useState(userInfo?.schedules || []);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleDurationChange = (e) => {
-    setSlotDuration(e);
+    setSlotDuration(parseInt(e));
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    api
-      .put(`contexts/doctorInfo/${userInfo?.id}`, {
-        slot_duration: slotDuration,
-      })
-      .then((response) => {
-        setIsSubmitting(false);
-        dispatch(updateUserInfo(response.data));
-      })
-      .catch((error) => {
-        setIsSubmitting(false);
-        console.log(error);
-      });
+    console.log(slotDuration);
+    if (slotDuration !== userInfo?.slot_duration) {
+      setIsSubmitting(true);
+      api
+        .put(`contexts/doctorInfo/${userInfo?.id}`, {
+          slot_duration: slotDuration,
+        })
+        .then((response) => {
+          setIsSubmitting(false);
+          dispatch(updateUserInfo(response.data));
+        })
+        .catch(() => {
+          setIsSubmitting(false);
+        });
+    }
   };
   return (
     <Board>
@@ -58,8 +66,8 @@ function Timings() {
             <div className="flex gap-2 my-1">
               <Select
                 name="slot_duration"
-                defaultValue={userInfo?.slot_duration}
                 onValueChange={handleDurationChange}
+                value={slotDuration}
               >
                 <SelectTrigger className="w-[200px]">
                   <SelectValue placeholder="Select Duration" />
@@ -67,8 +75,8 @@ function Timings() {
                 <SelectContent>
                   <SelectGroup>
                     {SLOT_DURATIONS.map((duration, index) => (
-                      <SelectItem key={index} value={duration}>
-                        {duration}
+                      <SelectItem key={index} value={duration.value}>
+                        {duration.time}
                       </SelectItem>
                     ))}
                   </SelectGroup>
@@ -89,28 +97,56 @@ function Timings() {
           )}
         </form>
         <hr />
-        <div className="p-3">
-          <p className="font-bold text-lg text-zinc-700 mb-2">
-            Slots Timings <AddTimings />
-          </p>
-          {!loading ? (
-            userInfo?.schedules &&
-            userInfo?.schedules.map((schedule, index) => (
-              <div className="" key={index}>
-                {schedule?.day}
-                {formatTime(schedule?.start_time)}
-                {formatTime(schedule?.end_time)}
-              </div>
-            ))
-          ) : (
-            <span>sdaf</span>
-          )}
-          <div className="grid grid-cols-4 gap-3">
-            <p className="">Monday</p>
-            <Input type="text" />
-            <Input type="text" />
+        {!loading ? (
+          <div className="p-3">
+            <p className="flex justify-between font-bold text-lg text-zinc-700 mb-2">
+              Slots Timings
+            </p>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Day</TableHead>
+                  <TableHead>Start Time</TableHead>
+                  <TableHead>End Time</TableHead>
+                  <TableHead>No. of Slots</TableHead>
+                  <TableHead></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {DAYS.map((day, idx) => {
+                  const schedule = userInfo?.schedules?.find(
+                    (schedule) => schedule.day === day
+                  );
+                  return (
+                    <TableRow key={idx}>
+                      <TableCell>{day}</TableCell>
+                      <TableCell>
+                        {schedule?.start_time
+                          ? formatTime(schedule?.start_time)
+                          : "--:--"}
+                      </TableCell>
+                      <TableCell>
+                        {schedule?.end_time
+                          ? formatTime(schedule?.end_time)
+                          : "--:--"}
+                      </TableCell>
+                      <TableCell>{schedule?.total_slots ?? "-"}</TableCell>
+                      <TableCell>
+                        <EditTimings
+                          schedule={schedule}
+                          schedules={userInfo?.schedules}
+                          day={day}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           </div>
-        </div>
+        ) : (
+          <span></span>
+        )}
       </div>
     </Board>
   );

@@ -11,10 +11,10 @@ export const DAYS = [
   "SUNDAY",
 ];
 export const SLOT_DURATIONS = [
-  "10 mins",
-  "15 mins",
-  "20 mins",
-  "30 mins",
-  "45 mins",
-  "1 Hour",
+  { time: "10 mins", value: 10 },
+  { time: "15 mins", value: 15 },
+  { time: "20 mins", value: 20 },
+  { time: "30 mins", value: 30 },
+  { time: "45 mins", value: 45 },
+  { time: "1 Hour", value: 60 },
 ];
