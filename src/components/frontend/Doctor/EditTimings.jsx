@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import useAxios from "@/services/useAxios";
 import { Settings2 } from "lucide-react";
 import { Label } from "@/widgets/ui/label";
@@ -15,9 +16,11 @@ import {
   DialogTitle,
 } from "@/widgets/ui/dialog";
 import { ErrorInfo } from "@/components/Icons";
+import { updateSchedules } from "@/redux/actions/userActions";
 
 function EditTimings({ schedule, schedules, day }) {
   const api = useAxios();
+  const dispatch = useDispatch();
   const dialogCloseRef = useRef(null);
   const [formData, setFormData] = useState(
     schedule ?? {
@@ -49,17 +52,27 @@ function EditTimings({ schedule, schedules, day }) {
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
+  const getUpdatedData = () => {
+    const index = schedules.findIndex((item) => item.day === formData?.day);
+    if (index !== -1) {
+      const updatedSchedules = [...schedules];
+      updatedSchedules[index] = { ...formData };
+      return updatedSchedules;
+    } else {
+      return [...schedules, { ...formData }];
+    }
+  };
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     const valid = validateForm();
     if (valid) {
+      const data = getUpdatedData();
       api
         .post("doctors/schedules", {
-          schedules: [...schedules, { ...formData }],
+          schedules: data,
         })
         .then((res) => {
-          console.log(res);
+          dispatch(updateSchedules(res.data?.schedules));
           dialogCloseRef.current.click();
         })
         .catch(() => {});

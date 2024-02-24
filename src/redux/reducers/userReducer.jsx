@@ -5,6 +5,7 @@ import {
   getPatientInfo,
   updateUserInfo,
   makeUserRequest,
+  updateSchedules,
 } from "@/redux/actions/userActions";
 
 const initialState = {
@@ -36,6 +37,9 @@ const userReducer = createReducer(initialState, (builder) => {
     state.loading = true;
     state.userInfo = action.payload;
     state.loading = false;
+  });
+  builder.addCase(updateSchedules, (state, action) => {
+    state.userInfo.schedules = action.payload;
   });
 });
 

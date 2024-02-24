@@ -53,7 +53,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/:id/:name" element={<DoctorView />} />
-          <Route path="/doctors/:id/:name/booking" element={<Booking />} />
 
           <Route element={<PublicRoute />}>
             <Route element={<DocRestrictedRoute />}>
@@ -66,6 +65,7 @@ function App() {
                 element={<PasswordChange />}
               />
             </Route>
+            <Route path="/doctors/:id/:name/booking" element={<Booking />} />
           </Route>
 
           <Route element={<DoctorRoute />}>
