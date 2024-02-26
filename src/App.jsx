@@ -13,6 +13,7 @@ import Home from "./pages/frontend/Home/Home";
 import Doctors from "./pages/frontend/Doctors/Doctors";
 import DoctorView from "./pages/frontend/Doctors/DoctorView";
 import Booking from "./pages/frontend/Doctors/Booking";
+import Payment from "./pages/frontend/Doctors/Payment";
 import Profile from "./pages/frontend/Profile/Profile";
 import MyBookings from "./pages/frontend/Profile/MyBookings";
 import Favourites from "./pages/frontend/Profile/Favourites";
@@ -66,6 +67,10 @@ function App() {
               />
             </Route>
             <Route path="/doctors/:id/:name/booking" element={<Booking />} />
+            <Route
+              path="/doctors/:id/:name/booking/payment"
+              element={<Payment />}
+            />
           </Route>
 
           <Route element={<DoctorRoute />}>

@@ -1,5 +1,8 @@
 export const apiUrl = "http://127.0.0.1:8000";
 
+export const STRIPE_PUBLISHABLE_KEY =
+  "pk_test_51OnvjxSFW9i5cmVtNePJOeWxZHdjnlG8raKtK1FsXydfj17qy3XGURw0ZjLZ04D6snhDcHZ1eNhriOWN66Tb9FNk00aCOjmw9b";
+
 export const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 export const DAYS = [
   "MONDAY",
