@@ -7,6 +7,20 @@
   padding: 20px;
 }
 
+@keyframes successCheckPing {
+  0% {
+    transform: scale(0.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.successCheck {
+  animation: successCheckPing 1s forwards;
+  box-shadow: 0px 0px 10px #277c32;
+}
+
 @media (max-width: 576px) {
   ._layout {
     padding-top: 60px;

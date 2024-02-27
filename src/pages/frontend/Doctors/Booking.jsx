@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import useAxios from "@/services/useAxios";
 import {
   Tooltip,
@@ -18,9 +19,11 @@ import Layout from "@/components/frontend/Layout/Layout";
 import Rating from "@/components/Rating";
 import { DocSpeciality, Location, DocFee } from "@/components/Icons";
 import Loader from "@/components/frontend/Loader/Loader";
+import { SlotSelection } from "@/redux/actions/slotActions";
 
 function Booking() {
   const api = useAxios();
+  const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
   const [doctor, setDoctor] = useState({});
@@ -64,6 +67,7 @@ function Booking() {
       });
   };
   const goToPayment = () => {
+    dispatch(SlotSelection({ doctor, selectedSlot }));
     navigate("payment");
   };
   if (loading) {
