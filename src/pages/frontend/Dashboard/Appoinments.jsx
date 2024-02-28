@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import useAxios from "@/services/useAxios";
+import { apiUrl } from "@/services/constants";
 import { Check, X } from "lucide-react";
 import {
   Table,
@@ -10,8 +13,66 @@ import {
   TableCell,
 } from "@/widgets/ui/table";
 import Board from "@/components/frontend/Board/Board";
+import Loader from "@/components/frontend/Loader/Loader";
+import { LoadSpinner } from "@/components/Icons";
+import { formatDate } from "@/func/days";
+import { formatTime } from "@/func/time";
 
 function Appoinments() {
+  const api = useAxios();
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [isNext, setIsNext] = useState(false);
+  const [loadMore, setLoadMore] = useState(false);
+  useEffect(() => {
+    api
+      .get("doctors/appointments")
+      .then((res) => {
+        setAppointments(res.data?.results);
+        if (res.data?.next) {
+          setIsNext(true);
+          setPage(page + 1);
+        }
+        setLoading(false);
+      })
+      .catch(() => {});
+    // eslint-disable-next-line
+  }, []);
+  const handleLoadMore = () => {
+    if (isNext) {
+      setLoadMore(true);
+      api
+        .get(`doctors/appointments?page=${page}`)
+        .then((res) => {
+          setAppointments([...appointments, ...res.data.results]);
+          if (res.data.next) {
+            setIsNext(true);
+            setPage(page + 1);
+          } else {
+            setIsNext(false);
+          }
+          setLoadMore(false);
+        })
+        .catch(() => {});
+    }
+  };
+  const handleAppointmentStatus = (id, value) => {
+    const updatedData = appointments.map((item) =>
+      item.id === id ? { ...item, status: value } : item
+    );
+    const data = updatedData.find((item) => item.id === id);
+    api
+      .post(`doctors/appointments/${id}`, data)
+      .then(() => {
+        setAppointments(updatedData);
+        console.log(updatedData);
+      })
+      .catch(() => {});
+  };
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <Board>
       <div className="p-1">
@@ -30,52 +91,99 @@ function Appoinments() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {[1, 2, 3, 4, 5, 6].map((appoint_, index) => (
-              <TableRow key={index}>
+            {appointments.map((apt_, idx) => (
+              <TableRow key={idx}>
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <img
-                      src="https://doccure.dreamstechnologies.com/html/template/assets/img/doctors/doctor-thumb-02.jpg"
+                      src={
+                        apt_?.patient?.picture
+                          ? apiUrl + apt_?.patient?.picture
+                          : "https://doccure.dreamstechnologies.com/html/template/assets/img/doctors/doctor-thumb-02.jpg"
+                      }
                       alt=""
                       className="w-[40px] rounded-full"
                     />
-                    <div className="">
-                      <p className="text-gray-900 font-bold hover:text-ternary transition-all duration-300 cursor-pointer">
-                        Aman Rahees
-                      </p>
-                      <small className="">#PT1001</small>
-                    </div>
+                    <Link className="">
+                      <span className="block max-w-[120px] text-ellipsis overflow-hidden text-gray-900 font-bold hover:text-ternary transition-all duration-300 cursor-pointer">
+                        {apt_?.patient?.first_name ?? "Unknown"}{" "}
+                        {apt_?.patient?.last_name ?? ""}
+                      </span>
+                      <small className="block text-secondary">
+                        #PT100{apt_?.patient?.id}
+                      </small>
+                    </Link>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p>Feb 4, 2024</p>
-                  <small className="">11:00 A.M</small>
+                  <p className="text-[12px]">
+                    {formatDate(apt_?.appointment_slot?.date)}
+                  </p>
+                  <small className="font-bold text-teal-500">
+                    {formatTime(apt_?.appointment_slot?.start_time)}
+                  </small>
                 </TableCell>
-                <TableCell>Feb 2, 2024</TableCell>
+                <TableCell>
+                  <span className="text-xs">
+                    {formatDate(apt_?.booked_time)}
+                  </span>
+                </TableCell>
                 <TableCell>
                   <div className="flex gap-2">
-                    <button className="bg-green-100 text-green-700 py-1 px-2 text-xs rounded-3xl">
-                      <Check size={12} className="inline-block mr-1" />
-                      Complete
-                    </button>
-                    <button className="bg-red-100 text-red-700 py-1 px-2 text-xs rounded-3xl">
-                      <X size={12} className="inline-block mr-1" />
-                      Cancel
-                    </button>
+                    {apt_?.status === "pending" ? (
+                      <>
+                        <button
+                          onClick={() =>
+                            handleAppointmentStatus(apt_?.id, "completed")
+                          }
+                          className="bg-green-100 text-green-700 py-1 px-2 text-xs rounded-3xl"
+                        >
+                          <Check size={12} className="inline-block mr-1" />
+                          Complete
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleAppointmentStatus(apt_?.id, "cancelled")
+                          }
+                          className="bg-red-100 text-red-700 py-1 px-2 text-xs rounded-3xl"
+                        >
+                          <X size={12} className="inline-block mr-1" />
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className={`${
+                          apt_?.status === "completed"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                        } py-1 px-2 text-xs rounded-3xl`}
+                      >
+                        {apt_?.status === "completed" ? (
+                          <Check size={12} className="inline-block mr-1" />
+                        ) : (
+                          <X size={12} className="inline-block mr-1" />
+                        )}
+                        {apt_?.status}
+                      </button>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <div className="flex justify-end gap-1 my-1">
-          <button className="px-3 py-2 bg-primary text-white rounded-md text-xs">
-            Prev
-          </button>
-          <button className="px-3 py-2 bg-primary text-white rounded-md text-xs">
-            Next
-          </button>
-        </div>
+        {isNext && (
+          <div className="flex justify-center gap-1 my-1">
+            <button
+              disabled={loadMore}
+              onClick={handleLoadMore}
+              className="text-secondary bg-sky-50 text-xs md:text-sm w-[120px] text-center py-2 rounded-2xl"
+            >
+              {loadMore ? <LoadSpinner /> : <span>Load More</span>}
+            </button>
+          </div>
+        )}
       </div>
     </Board>
   );

@@ -16,7 +16,6 @@ import Booking from "./pages/frontend/Doctors/Booking";
 import Payment from "./pages/frontend/Doctors/Payment";
 import Profile from "./pages/frontend/Profile/Profile";
 import MyBookings from "./pages/frontend/Profile/MyBookings";
-import Favourites from "./pages/frontend/Profile/Favourites";
 import Wallet from "./pages/frontend/Profile/Wallet";
 import PasswordChange from "./pages/frontend/Profile/PasswordChange";
 import Login from "./pages/frontend/Auth/Login";
@@ -59,7 +58,6 @@ function App() {
             <Route element={<DocRestrictedRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/appointments" element={<MyBookings />} />
-              <Route path="/profile/favourites" element={<Favourites />} />
               <Route path="/profile/wallet" element={<Wallet />} />
               <Route
                 path="/profile/change-password"

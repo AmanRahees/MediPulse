@@ -1,7 +1,6 @@
 import {
   User,
   ClipboardPen,
-  Bookmark,
   Lock,
   Wallet,
   LayoutDashboard,
@@ -22,11 +21,6 @@ export const patientItems = [
     title: "Appointments",
     path: "/profile/appointments",
     icon: <ClipboardPen size={20} />,
-  },
-  {
-    title: "Favourites",
-    path: "/profile/favourites",
-    icon: <Bookmark size={20} />,
   },
   {
     title: "Wallet",

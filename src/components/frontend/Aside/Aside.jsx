@@ -52,13 +52,12 @@ function Aside({ items, userInfo, loading, role }) {
                   {stringDOB(userInfo?.DOB)}, {getAge(userInfo?.DOB)}
                 </small>
               )}
-              {userInfo?.city ||
-                (userInfo?.state && (
-                  <small className="flex justify-center items-center gap-1 text-gray-600">
-                    <FontAwesomeIcon icon={faLocationDot} className="mb-1" />{" "}
-                    {userInfo?.city}, {userInfo?.state}
-                  </small>
-                ))}
+              {userInfo?.city && userInfo?.state && (
+                <small className="flex justify-center items-center gap-1 text-gray-600">
+                  <FontAwesomeIcon icon={faLocationDot} className="mb-1" />{" "}
+                  {userInfo?.city}, {userInfo?.state}
+                </small>
+              )}
             </div>
           )}
         </div>

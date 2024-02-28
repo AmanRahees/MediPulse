@@ -30,8 +30,10 @@ function DoctorView() {
         setDoctor(res.data);
         setLoading(false);
       })
-      .catch(() => {});
-  }, [id]);
+      .catch(() => {
+        navigate("/doctors");
+      });
+  }, [id, navigate]);
   if (loading) {
     return <Loader />;
   }
